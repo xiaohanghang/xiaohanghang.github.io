@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="HashMap源码,集合框架源码阅读," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="StormWangxhu' s blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="你的努力终将会有回报，路漫漫其修远兮，吾将上下而求索！   前言经过了头条 和阿里巴巴 的两次面试后,虽然两次都挂在了一面,但对于大二的我也非常有收获。每次面试都对自己有了更清晰的认识，对要学的东西也变的更清楚。比如现在还停留在 Java 这门语言的层面，还有数据结构、算法、计算机原理、操作系统等知识都还没有学习，记得阿里面试官问我，还有哪些技能吗？我想了想，也只能说现在在学习语言，其他的还没">
+<meta name="keywords" content="HashMap源码,集合框架源码阅读">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初解 HashMap 源码准备（一）">
+<meta property="og:url" content="https://StormWangxhu.github.io/2018/04/11/初解-HashMap-源码准备（一）/index.html">
+<meta property="og:site_name" content="StormWangxhu&#39; s blog">
+<meta property="og:description" content="你的努力终将会有回报，路漫漫其修远兮，吾将上下而求索！   前言经过了头条 和阿里巴巴 的两次面试后,虽然两次都挂在了一面,但对于大二的我也非常有收获。每次面试都对自己有了更清晰的认识，对要学的东西也变的更清楚。比如现在还停留在 Java 这门语言的层面，还有数据结构、算法、计算机原理、操作系统等知识都还没有学习，记得阿里面试官问我，还有哪些技能吗？我想了想，也只能说现在在学习语言，其他的还没">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://blog.yangx.site/images/HashMap.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/879896/201605/879896-20160513152924249-1835974754.jpg">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/879896/201605/879896-20160513153325593-1852958590.jpg">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/879896/201605/879896-20160513155235359-1362682773.jpg">
+<meta property="og:image" content="http://images0.cnblogs.com/blog/641601/201508/262042454228505.png">
+<meta property="og:image" content="http://my.csdn.net/uploads/201205/15/1337089390_5490.jpg">
+<meta property="og:image" content="https://images0.cnblogs.com/i/497634/201403/251730074203156.jpg">
+<meta property="og:image" content="https://4.bp.blogspot.com/-qWRZSkyBDGc/V6M41S237DI/AAAAAAAAGxQ/xKS9RMu57tAsLHPFzw7JfSTq6tLoBvIjACLcB/w1200-h630-p-k-no-nu/How%2Bdoes%2BHashMap%2Bworks%2Bin%2BJava%2B8.jpg">
+<meta property="og:updated_time" content="2018-04-11T07:42:31.482Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初解 HashMap 源码准备（一）">
+<meta name="twitter:description" content="你的努力终将会有回报，路漫漫其修远兮，吾将上下而求索！   前言经过了头条 和阿里巴巴 的两次面试后,虽然两次都挂在了一面,但对于大二的我也非常有收获。每次面试都对自己有了更清晰的认识，对要学的东西也变的更清楚。比如现在还停留在 Java 这门语言的层面，还有数据结构、算法、计算机原理、操作系统等知识都还没有学习，记得阿里面试官问我，还有哪些技能吗？我想了想，也只能说现在在学习语言，其他的还没">
+<meta name="twitter:image" content="https://blog.yangx.site/images/HashMap.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://StormWangxhu.github.io/2018/04/11/初解-HashMap-源码准备（一）/"/>
+
+
+
+
+
+  <title>初解 HashMap 源码准备（一） | StormWangxhu' s blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">StormWangxhu' s blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+      <a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://StormWangxhu.github.io/2018/04/11/初解-HashMap-源码准备（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StormWangxhu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar_3.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="StormWangxhu' s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">初解 HashMap 源码准备（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-11T00:00:00+08:00">
+                2018-04-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/打怪升级之源码解析系列/" itemprop="url" rel="index">
+                    <span itemprop="name">打怪升级之源码解析系列</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<blockquote>
+<p>你的努力终将会有回报，路漫漫其修远兮，吾将上下而求索！</p>
+</blockquote>
+<hr>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>经过了<a href="https://stormwangxhu.github.io/2018/03/30/30--%E8%AE%B0%E5%A4%B4%E6%9D%A1Java%E5%AE%9E%E4%B9%A0%E7%AC%AC%E4%B8%80%E9%9D%A2/">头条</a> 和<a href="https://stormwangxhu.github.io/2018/04/10/%E8%AE%B0%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4-Java-%E5%AE%9E%E4%B9%A0%E7%AC%AC%E4%B8%80%E9%9D%A2/">阿里巴巴</a> 的两次面试后,虽然两次都挂在了一面,但对于大二的我也非常有收获。每次面试都对自己有了更清晰的认识，对要学的东西也变的更清楚。比如现在还停留在 Java 这门语言的层面，还有数据结构、算法、计算机原理、操作系统等知识都还没有学习，记得阿里面试官问我，还有哪些技能吗？我想了想，也只能说现在在学习语言，其他的还没有开始学习。说完后，也略觉尴尬。还有便是基础的重要性了，一面大都会问基础知识，基础知识掌握不牢固，感觉即使后面的知识学的可以，也有可能被挡在一面这道门槛上。所以下定决心回头看基础，从两次都问到的HashMap源码阅读开始。只希望我们都可以知其然，知其所以然。</p>
+<p>本篇博客，作为初试<code>HashMap</code> 源码阅读的开端章。将介绍一下相关概念。</p>
+<h2 id="Map相关"><a href="#Map相关" class="headerlink" title="Map相关"></a>Map相关</h2><h3 id="Map接口及其实现"><a href="#Map接口及其实现" class="headerlink" title="Map接口及其实现"></a>Map接口及其实现</h3><p><img src="https://blog.yangx.site/images/HashMap.png" alt="âHashMapå¾âçå¾çæç´¢ç»æ"></p>
+<p>从上图可以看出，<code>HashMap</code> 它继承类<code>AbstractMap</code> ，实现了3个接口<code>Map</code> ，<code>Serializable</code> ,<code>Cloneable</code> ，我们也可以从源码中看：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HashMap</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractMap</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">Map</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;, <span class="title">Cloneable</span>, <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="comment">//...暂时省略源码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在我们只需要知道接口它分别提供了什么功能即可：<code>Serializable</code> 接口提供序列化、<code>Cloneable</code> 提供克隆方法、<code>Map</code> 提供关于<code>Map</code> 集合一些操作的方法，如：<code>get、put</code> 方法等。其中类<code>AbstractMap</code> 它实现了一些<code>Map</code> 接口中的一些方法，自己也提供了一些方法。</p>
+<h3 id="散列与散列码"><a href="#散列与散列码" class="headerlink" title="散列与散列码"></a>散列与散列码</h3><h3 id="hashCode-和equlas-方法解读"><a href="#hashCode-和equlas-方法解读" class="headerlink" title="hashCode()和equlas()方法解读"></a>hashCode()和equlas()方法解读</h3><h3 id="初看HashMap性能因子"><a href="#初看HashMap性能因子" class="headerlink" title="初看HashMap性能因子"></a>初看HashMap性能因子</h3><h4 id="容量"><a href="#容量" class="headerlink" title="容量"></a>容量</h4><p>容量：即表中的桶位数。</p>
+<h4 id="初始容量"><a href="#初始容量" class="headerlink" title="初始容量"></a>初始容量</h4><p>初始容量：表在创建时所拥有的桶位数，HashMap和HashSet都具有允许你指定初始容量的构造器。</p>
+<h4 id="尺寸"><a href="#尺寸" class="headerlink" title="尺寸"></a>尺寸</h4><p>尺寸：表中当前存储的项数。</p>
+<h4 id="负载因子"><a href="#负载因子" class="headerlink" title="负载因子"></a>负载因子</h4><p>负载因子：记住这个公式：<strong>负载因子=尺寸/容量</strong> 。空表的负载因子为0，半满表的负载因子是0.5，以此类推。负载轻的表产生冲突的可能性小，因此对于插入和查找都是最理想的（但是会减慢使用迭代器进行遍历的过程）。HashMap和HashSet都具有允许你指定负载因子的构造器，表示当负载因子情况达到该负载因子的水平时，容器将会自动增加其容量（桶位数），实现方式是使容量大致加倍，并重新将现有对象分布到新的桶位集中（这被称为<em>再散列</em>）。</p>
+<p>若知道将要在HashMap中存储多少项，那么创建一个具有恰当大小的初始容量将可以避免再散列的开销。</p>
+<h3 id="数组简介"><a href="#数组简介" class="headerlink" title="数组简介"></a>数组简介</h3><p>数组？什么是数组，相信数组大家已经非常熟悉，那么在学习完了JVM运行时数据区域后，我们就应该载来认识一下数组在内存中是怎么样分配的？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] array = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">3</span>];</span><br></pre></td></tr></table></figure>
+<p>当我们<code>new</code> 一个数组时，那么在Java运行时区域的<strong>堆内存</strong>中，便会分配出一块内存，并返回该对象的引用。</p>
+<p><img src="http://images2015.cnblogs.com/blog/879896/201605/879896-20160513152924249-1835974754.jpg" alt="img"></p>
+<p>那么二维数组呢？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> [][] array = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">3</span>][];</span><br></pre></td></tr></table></figure>
+<p>在大一时学习C语言的二维数组时说到其实二维数组也是一维数组。到底什么意思呢？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">array[<span class="number">0</span>] = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">3</span>];</span><br><span class="line">array[<span class="number">1</span>] = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">5</span>];</span><br><span class="line">array[<span class="number">2</span>] = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">4</span>];</span><br></pre></td></tr></table></figure>
+<p>二维数组其实是这样的：</p>
+<p><img src="http://images2015.cnblogs.com/blog/879896/201605/879896-20160513153325593-1852958590.jpg" alt="img"></p>
+<p>在Java中，数组也是一个对象，堆内存中怎样存放对象，也就怎么样存放数组。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> x;</span><br><span class="line">    <span class="keyword">int</span> y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">m1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    m2();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">m2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     A a = <span class="keyword">new</span> A();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们来看这段代码，首先执行方法<code>m1()</code> ,在上几篇博文中讲到：“虚拟机栈描述的是Java方法执行的内存模型：每个方法在执行时都会创建一个栈帧（Stack Frame），用于存储局部变量表、操作数栈、动态链接、方法出口等信息。每一个方法从调用直至执行完成的过程，就对应着一个栈帧在虚拟机栈中从入栈到出栈的过程。单线程下有错误时会抛出<code>StackOverFlowError</code> ，多线程下会抛出<code>OutOfMemoryError</code> 。” 详情：<a href="https://stormwangxhu.github.io/2018/04/06/%EF%BC%88%E4%BA%8C%EF%BC%89%E5%88%9D%E6%8E%A2-JVM-%E7%9A%84%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84/">（二）初探JVM 内存解构</a> </p>
+<p>现在来看看上述代码执行都发生了什么？</p>
+<p>首先，在执行方法<code>m1</code> 时，就会在VM栈中创建一个栈帧，在局部变量表中存储变量<code>i</code> ,将其栈帧压入进栈中，然后执行<code>m2</code> 方法，又创建栈帧<code>Frame-2</code> ，栈帧<code>Frame-2</code> 被创建并<code>push</code> 到栈中，在<code>m2</code> 方法中，一个新的对象A在堆中被创建，而它的引用则被<code>put</code> 到栈帧<code>Frame-2</code> 里；</p>
+<p><img src="http://images2015.cnblogs.com/blog/879896/201605/879896-20160513155235359-1362682773.jpg" alt="img"></p>
+<h3 id="单向链表简介"><a href="#单向链表简介" class="headerlink" title="单向链表简介"></a>单向链表简介</h3><p><img src="http://images0.cnblogs.com/blog/641601/201508/262042454228505.png" alt="âjava åé¾è¡¨å¾çâçå¾çæç´¢ç»æ"></p>
+<p>链表，是什么？链表是一组元素的集合，这些元素被称为节点（node），每个节点（除最后一个节点外）都包含了下一节点的地址。因此，链表中的每个节点都有两个字段：一个拿来存储相关信息，一个存储下一个节点的地址，称为链。链表中第一个节点的地址存储在一个单独的节点中，该节点称为头节点或首节点。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">K</span>, <span class="title">V</span>&gt; </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> K key;  </span><br><span class="line">    <span class="keyword">private</span> V value;  </span><br><span class="line">    <span class="keyword">private</span> Node&lt;K, V&gt; next;<span class="comment">//存放地址  </span></span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(K key, V value, Node&lt;K, V&gt; next)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.key = key;  </span><br><span class="line">        <span class="keyword">this</span>.value = value;  </span><br><span class="line">        <span class="keyword">this</span>.next = next;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> K <span class="title">getKey</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> key;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> V <span class="title">getValue</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> value;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setValue</span><span class="params">(V value)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.value = value;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Node&lt;K, V&gt; <span class="title">getNext</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> next;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNext</span><span class="params">(Node&lt;K, V&gt; next)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.next = next;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://my.csdn.net/uploads/201205/15/1337089390_5490.jpg" alt="âjava åé¾è¡¨å¾çâçå¾çæç´¢ç»æ"></p>
+<h3 id="红黑树简介"><a href="#红黑树简介" class="headerlink" title="红黑树简介"></a>红黑树简介</h3><p>R-B Tree，全称是Red-Black Tree，又称为“红黑树”，它一种特殊的二叉查找树。红黑树的每个节点上都有存储位表示节点的颜色，可以是红(Red)或黑(Black)。</p>
+<h4 id="红黑树特性"><a href="#红黑树特性" class="headerlink" title="红黑树特性"></a>红黑树特性</h4><p><strong>（1）每个节点或者是黑色，或者是红色。</strong><br><strong>（2）根节点是黑色。</strong><br><strong>（3）每个叶子节点（NIL）是黑色。 [注意：这里叶子节点，是指为空(NIL或NULL)的叶子节点！]</strong><br><strong>（4）如果一个节点是红色的，则它的子节点必须是黑色的。</strong><br><strong>（5）从一个节点到该节点的子孙节点的所有路径上包含相同数目的黑节点。</strong></p>
+<p>示意图如下：</p>
+<p><img src="https://images0.cnblogs.com/i/497634/201403/251730074203156.jpg" alt="img"></p>
+<p>红黑树的应用比较广泛，主要是用它来存储有序的数据，它的时间复杂度是O(lgn)，效率非常之高。<br>例如，Java集合中的<code>TreeSet</code> 和<code>TreeMap</code> ，C++ STL中的set、map，以及Linux虚拟内存的管理，都是通过红黑树去实现的。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>主要学习了HashMap学习所需要的一些常识知识，因为在后面博文中我们会用到这些知识？HashMap内部到底有着怎么样的秘密？很期待~~~。</p>
+<p><img src="https://4.bp.blogspot.com/-qWRZSkyBDGc/V6M41S237DI/AAAAAAAAGxQ/xKS9RMu57tAsLHPFzw7JfSTq6tLoBvIjACLcB/w1200-h630-p-k-no-nu/How%2Bdoes%2BHashMap%2Bworks%2Bin%2BJava%2B8.jpg" alt="âHashMapå¾âçå¾çæç´¢ç»æ"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    StormWangxhu
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://StormWangxhu.github.io/2018/04/11/初解-HashMap-源码准备（一）/" title="初解 HashMap 源码准备（一）">https://StormWangxhu.github.io/2018/04/11/初解-HashMap-源码准备（一）/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/HashMap源码/" rel="tag"># HashMap源码</a>
+          
+            <a href="/tags/集合框架源码阅读/" rel="tag"># 集合框架源码阅读</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/11/操作系统、数据库、网络/" rel="next" title="操作系统、数据库、网络">
+                <i class="fa fa-chevron-left"></i> 操作系统、数据库、网络
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/11/Java-开源/" rel="prev" title="Java 开源">
+                Java 开源 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar_3.jpg"
+                alt="StormWangxhu" />
+            
+              <p class="site-author-name" itemprop="name">StormWangxhu</p>
+              <p class="site-description motion-element" itemprop="description">路漫漫其修远兮，吾将上下而求索。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/StormWangxhu" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://javisma.github.io/" title="JarvisMa" target="_blank">JarvisMa</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://bryancrash.site/" title="bryan" target="_blank">bryan</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://abra.wang/" title="Abra" target="_blank">Abra</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://xiaomu.bitcron.com/" title="Tech小穆" target="_blank">Tech小穆</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x524D;&#x8A00;" class="headerlink" title="&#x524D;&#x8A00;"></a>&#x524D;&#x8A00;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Map相关"><span class="nav-number">2.</span> <span class="nav-text"><a href="#Map&#x76F8;&#x5173;" class="headerlink" title="Map&#x76F8;&#x5173;"></a>Map&#x76F8;&#x5173;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Map接口及其实现"><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#Map&#x63A5;&#x53E3;&#x53CA;&#x5176;&#x5B9E;&#x73B0;" class="headerlink" title="Map&#x63A5;&#x53E3;&#x53CA;&#x5176;&#x5B9E;&#x73B0;"></a>Map&#x63A5;&#x53E3;&#x53CA;&#x5176;&#x5B9E;&#x73B0;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#散列与散列码"><span class="nav-number">2.2.</span> <span class="nav-text"><a href="#&#x6563;&#x5217;&#x4E0E;&#x6563;&#x5217;&#x7801;" class="headerlink" title="&#x6563;&#x5217;&#x4E0E;&#x6563;&#x5217;&#x7801;"></a>&#x6563;&#x5217;&#x4E0E;&#x6563;&#x5217;&#x7801;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hashCode-和equlas-方法解读"><span class="nav-number">2.3.</span> <span class="nav-text"><a href="#hashCode-&#x548C;equlas-&#x65B9;&#x6CD5;&#x89E3;&#x8BFB;" class="headerlink" title="hashCode()&#x548C;equlas()&#x65B9;&#x6CD5;&#x89E3;&#x8BFB;"></a>hashCode()&#x548C;equlas()&#x65B9;&#x6CD5;&#x89E3;&#x8BFB;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初看HashMap性能因子"><span class="nav-number">2.4.</span> <span class="nav-text"><a href="#&#x521D;&#x770B;HashMap&#x6027;&#x80FD;&#x56E0;&#x5B50;" class="headerlink" title="&#x521D;&#x770B;HashMap&#x6027;&#x80FD;&#x56E0;&#x5B50;"></a>&#x521D;&#x770B;HashMap&#x6027;&#x80FD;&#x56E0;&#x5B50;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#容量"><span class="nav-number">2.4.1.</span> <span class="nav-text"><a href="#&#x5BB9;&#x91CF;" class="headerlink" title="&#x5BB9;&#x91CF;"></a>&#x5BB9;&#x91CF;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#初始容量"><span class="nav-number">2.4.2.</span> <span class="nav-text"><a href="#&#x521D;&#x59CB;&#x5BB9;&#x91CF;" class="headerlink" title="&#x521D;&#x59CB;&#x5BB9;&#x91CF;"></a>&#x521D;&#x59CB;&#x5BB9;&#x91CF;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#尺寸"><span class="nav-number">2.4.3.</span> <span class="nav-text"><a href="#&#x5C3A;&#x5BF8;" class="headerlink" title="&#x5C3A;&#x5BF8;"></a>&#x5C3A;&#x5BF8;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#负载因子"><span class="nav-number">2.4.4.</span> <span class="nav-text"><a href="#&#x8D1F;&#x8F7D;&#x56E0;&#x5B50;" class="headerlink" title="&#x8D1F;&#x8F7D;&#x56E0;&#x5B50;"></a>&#x8D1F;&#x8F7D;&#x56E0;&#x5B50;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组简介"><span class="nav-number">2.5.</span> <span class="nav-text"><a href="#&#x6570;&#x7EC4;&#x7B80;&#x4ECB;" class="headerlink" title="&#x6570;&#x7EC4;&#x7B80;&#x4ECB;"></a>&#x6570;&#x7EC4;&#x7B80;&#x4ECB;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单向链表简介"><span class="nav-number">2.6.</span> <span class="nav-text"><a href="#&#x5355;&#x5411;&#x94FE;&#x8868;&#x7B80;&#x4ECB;" class="headerlink" title="&#x5355;&#x5411;&#x94FE;&#x8868;&#x7B80;&#x4ECB;"></a>&#x5355;&#x5411;&#x94FE;&#x8868;&#x7B80;&#x4ECB;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#红黑树简介"><span class="nav-number">2.7.</span> <span class="nav-text"><a href="#&#x7EA2;&#x9ED1;&#x6811;&#x7B80;&#x4ECB;" class="headerlink" title="&#x7EA2;&#x9ED1;&#x6811;&#x7B80;&#x4ECB;"></a>&#x7EA2;&#x9ED1;&#x6811;&#x7B80;&#x4ECB;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#红黑树特性"><span class="nav-number">2.7.1.</span> <span class="nav-text"><a href="#&#x7EA2;&#x9ED1;&#x6811;&#x7279;&#x6027;" class="headerlink" title="&#x7EA2;&#x9ED1;&#x6811;&#x7279;&#x6027;"></a>&#x7EA2;&#x9ED1;&#x6811;&#x7279;&#x6027;</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StormWangxhu</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v="></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v="></script>
+<script type="text/javascript" src="/js/src/post-details.js?v="></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v="></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,QQZone";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,QQZone";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v="></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v="></script>
+
+
+  
+
+</body>
+</html>

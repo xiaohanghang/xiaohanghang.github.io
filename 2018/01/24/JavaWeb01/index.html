@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaWeb," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="StormWangxhu' s blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="寒假放假已四天了，刚去老家浪完亲戚。今天开始学习了，每天给自己定个小目标，达成自己的小目标，写作和阅读同样需要耐心！！！ 今天主要学习三部分：  Java语言简介 Web应用开发简介 用Java进行Web开发   Java语言简介Java语言的特点： 平台无关性： 一次开发，随处运行。 面向对象： 以更符合人类思维方式来思考问题。 安全性： Java语言直接操作内存的地方少，更容易回收系统资源。">
+<meta name="keywords" content="JavaWeb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 语言和 Web 应用开发描述">
+<meta property="og:url" content="https://StormWangxhu.github.io/2018/01/24/JavaWeb01/index.html">
+<meta property="og:site_name" content="StormWangxhu&#39; s blog">
+<meta property="og:description" content="寒假放假已四天了，刚去老家浪完亲戚。今天开始学习了，每天给自己定个小目标，达成自己的小目标，写作和阅读同样需要耐心！！！ 今天主要学习三部分：  Java语言简介 Web应用开发简介 用Java进行Web开发   Java语言简介Java语言的特点： 平台无关性： 一次开发，随处运行。 面向对象： 以更符合人类思维方式来思考问题。 安全性： Java语言直接操作内存的地方少，更容易回收系统资源。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-28T11:37:30.656Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java 语言和 Web 应用开发描述">
+<meta name="twitter:description" content="寒假放假已四天了，刚去老家浪完亲戚。今天开始学习了，每天给自己定个小目标，达成自己的小目标，写作和阅读同样需要耐心！！！ 今天主要学习三部分：  Java语言简介 Web应用开发简介 用Java进行Web开发   Java语言简介Java语言的特点： 平台无关性： 一次开发，随处运行。 面向对象： 以更符合人类思维方式来思考问题。 安全性： Java语言直接操作内存的地方少，更容易回收系统资源。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://StormWangxhu.github.io/2018/01/24/JavaWeb01/"/>
+
+
+
+
+
+  <title>Java 语言和 Web 应用开发描述 | StormWangxhu' s blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">StormWangxhu' s blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+      <a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://StormWangxhu.github.io/2018/01/24/JavaWeb01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StormWangxhu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar_3.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="StormWangxhu' s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java 语言和 Web 应用开发描述</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-24T13:31:24+08:00">
+                2018-01-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaWeb起步篇/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaWeb起步篇</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>寒假放假已四天了，刚去老家浪完亲戚。今天开始学习了，每天给自己定个小目标，达成自己的小目标，写作和阅读同样需要耐心！！！</p>
+<p>今天主要学习三部分：</p>
+<ul>
+<li>Java语言简介</li>
+<li>Web应用开发简介</li>
+<li>用Java进行Web开发</li>
+</ul>
+<hr>
+<h2 id="Java语言简介"><a href="#Java语言简介" class="headerlink" title="Java语言简介"></a>Java语言简介</h2><h3 id="Java语言的特点："><a href="#Java语言的特点：" class="headerlink" title="Java语言的特点："></a>Java语言的特点：</h3><ul>
+<li><strong>平台无关性：</strong> 一次开发，随处运行。</li>
+<li><strong>面向对象：</strong> 以更符合人类思维方式来思考问题。</li>
+<li><strong>安全性：</strong> Java语言直接操作内存的地方少，更容易回收系统资源。</li>
+<li><strong>并发编程：</strong> Java包装的多线程开发模式，使得开发更容易，运行效率更高。</li>
+<li><strong>异常处理机制：</strong>帮助程序员更容易地为用户定位各种错误。</li>
+<li><strong>丰富的类库：</strong> JDK本身包含了许多丰富的类库，许多第三方的类库也是开源或者免费提供的。</li>
+</ul>
+<h3 id="Java语言的发展现状："><a href="#Java语言的发展现状：" class="headerlink" title="Java语言的发展现状："></a>Java语言的发展现状：</h3><ul>
+<li>网络环境开发：<br>理论上来讲，Java可以应用到任何的领域，只是网络环境上的开发，是它应用最广泛和最成功的的地方。</li>
+<li>桌面应用程序：<br>例如：IBM支持的Eclipse,Oracle数据库、Borland的JBuilder、Sun的Netbeans等。当需要开发跨平台的开发程序的时候，Java往往是最好的选择。</li>
+</ul>
+<h3 id="Java语言的发展前景："><a href="#Java语言的发展前景：" class="headerlink" title="Java语言的发展前景："></a>Java语言的发展前景：</h3><p>当今世界的IT技术发展异常迅猛，Java语言也不断的发展，在未来的开发环境里，Java技术会在以下几个方面有很好的发展前景。</p>
+<ul>
+<li>1、大型服务程序。<br> 目前许多大型的服务器程序（如：电信计费系统、银行记账系统、证券业务系统等）都是在UNIX或Linux系统上运行，这些系统普遍有几个特点，就是<strong>安全、高效、集群</strong>等。使用Java语言开发，能够很好的满足这些需求。<strong>Java的跨平台性</strong>，使得程序可以在Windows上开发，在UNIX上运行，开发效率高；<strong>Java开发的程序往往比较健壮和安全，不易出现系统崩溃等大问题</strong>；Java的服务器程序大多有比较好的集群支持，不会使用操作系统底层的API来实现集群。另外，Java在这些方面也非常丰富的类库以供使用，设计模式也很成熟。</li>
+<li>2、信息管理系统。<br>以前大多数信息管理系统采用C/S结构开发，需要一个专门的客户端；随着浏览器的富客户端技术(RIA)日渐成熟，尤其是Ajax技术的大量普及，信息管理系统越来越多的采用B/S结构。Java的.Net技术也在这方面很有优势。</li>
+<li>3、嵌入式开发。<br> 以前的嵌入式开发（如：电视机顶盒、手持智能设备等）由于硬件配置比较低，大多采用C/C++这类效率优先的语言进行开发，这种方式开发难度大且几乎不具有移植性。随着J2ME技术的应用和普及，尤其是手机行业，开发这类移动软件容易多了，移植性也增强了。</li>
+</ul>
+<h2 id="Web应用开发简介"><a href="#Web应用开发简介" class="headerlink" title="Web应用开发简介"></a>Web应用开发简介</h2><h3 id="Web程序的运行机制："><a href="#Web程序的运行机制：" class="headerlink" title="Web程序的运行机制："></a>Web程序的运行机制：</h3><ul>
+<li>Web程序总是包含两部分：（1）、浏览器客户端程序（2）、服务器端程序。</li>
+</ul>
+<ul>
+<li>Web程序基本组成元素： 网页。一般代表网站中的一页，通常是超文本标记语言（HTML）格式（文件拓展名为.html，.htm，.asp，.aspx，.php或.jsp）。浏览器通过解析网页向用户呈现文字、图片等。</li>
+</ul>
+<ul>
+<li>Web程序运行机制概括：<strong>用户通过浏览器向服务端发送HTTP请求，服务器端接受请求并处理，然后将处理结果返回给客户端浏览器，浏览器得到处理结果并呈现给用户。</strong></li>
+</ul>
+<h3 id="Web的特点："><a href="#Web的特点：" class="headerlink" title="Web的特点："></a>Web的特点：</h3><ul>
+<li>1、丰富的图形化功能   </li>
+</ul>
+<p>​        一页上可以显示丰富多彩的图形和文本，它具有将图形、音频、视频信息集合于一体的特性。</p>
+<ul>
+<li><p>2、易于导航</p>
+<p>Web的超级链接机制，把全联系起来，用户只需要从一个连接跳到另一个链接，就可以在各页面、各站点之间进行浏览了。而且，超级链接也增强了Web技术的互操作性。</p>
+</li>
+<li><p>3、终端平台无关性</p>
+<p>访问Web程序是通过 <strong>浏览器（Browser）实现</strong>。不论是Windows，Linux还是别的操作系统都可以安装浏览器软件。且大多数系统都自带浏览器软件。</p>
+</li>
+<li><p>4、信息是分布式的</p>
+<p>大量的图形、音频和视频信息资源会占用大量的磁盘空间，Web可以把这些资源进行整合，将物理上并不在一起的信息资源组成一个逻辑上的整体，用户就可以以最小的代价访问这些资源。其实，用户根本不知道这些资源是分布在不同地方的。</p>
+</li>
+<li><p>5、信息的动态性Web技术的发展</p>
+<ul>
+<li><p>HTML:  超文本语言，用来表示网上信息的一种符号标记语言。</p>
+</li>
+<li><p>DHTML:  与HTML最大区别是，能够动态改变网页的内容。有两个基本组成：（1）、级连格式（CSS）(2)、脚本语言。</p>
+<p>CSS为HTML带来了两点很大的好处：一是丰富了HTML的变现力，另一点是实现了内容与变现的分离。   有了CSS之后，HTML就只用来表示网页元素和内容，如何呈现给用户由CSS来完成，由此，提高了开发效率，降低了维护难度。 </p>
+</li>
+<li><p>动态语言:  动态语言也是嵌入到HTML代码中间的，只不过这些代码是在服务器端执行，返回到客户端时已是执行以后得页面内容了。ASP/PHP/JSP是使用最多的3种动态语言。</p>
+</li>
+<li><p>系统解决方案: 略</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Web技术的发展"><a href="#Web技术的发展" class="headerlink" title="Web技术的发展"></a>Web技术的发展</h3><h3 id="开发一个Web应用的基本步骤"><a href="#开发一个Web应用的基本步骤" class="headerlink" title="开发一个Web应用的基本步骤"></a>开发一个Web应用的基本步骤</h3><p>一个典型的Web应用程序会包含若干网页，这些网页是用户最终看到的内容，根据用户的可看到的网页内容和网页之间的联系，可以确定该Web应用程序提供了多少功能，然后再组织服务器端来实现这些功能。</p>
+<p>基本步骤如下：</p>
+<ul>
+<li><p>根据特定的业务需求完成页面实现。</p>
+<p>例如一个登陆程序会包含2个页面，一个是登陆页面，另一个是登录完成成功以后的页面。</p>
+</li>
+<li><p>完成服务器端程序的实现。</p>
+<p>例如：登录程序需要从客户端接受2个参数: 用户名和密码。然后验证参数是否正确（可能会访问数据库），正确则转到成功页面。失败则返回登录页面。</p>
+</li>
+<li><p>把页面和服务器端程序部署到Web服务器里面。</p>
+<p>一般是直接复制文件到服务器的相应位置，必要时还需要做相应配置。</p>
+</li>
+<li><p>通过浏览器访问Web程序</p>
+<p>在浏览器地址栏输入相应地址（格式：http://&lt;主机名或IP地址&gt;:&lt;端口号&gt;/&lt;应用的名字&gt;/&lt;页面的名字&gt;）并按下Enter键，就可以访问Web程序了。</p>
+</li>
+</ul>
+<h2 id="用Java进行Web用开发"><a href="#用Java进行Web用开发" class="headerlink" title="用Java进行Web用开发"></a>用Java进行Web用开发</h2><h3 id="Java-Web开发的基本思想"><a href="#Java-Web开发的基本思想" class="headerlink" title="Java Web开发的基本思想"></a>Java Web开发的基本思想</h3><p>Java Web开发指的是使用 Java语言，按照 Java EE规范开发Web应用程序。这些应用程序需要部署到符合该规范的Web容器里面。 <strong>Java EE规范很广泛，Web只是其中一个方面，它定义了一个标准的Java Web应用程序的各种规范，包括目录结构、描述文件、Servlet、JSP等。</strong></p>
+<ul>
+<li><p>目录结构</p>
+<ul>
+<li><p>JavaWeb程序的所有文件需要包含在一个文件里面。该文件夹目录结构有一定的规范。</p>
+</li>
+<li><p>需要包含文件夹名为：“Web-INF”。该文件夹对客户端来说不可见。”Web-INF”文件夹中还包含了存放类文件夹的” classes “文件夹，和存放类库的文件” lib “，以及Web描述文件”Web.xml“  ;</p>
+</li>
+<li><p>与“Web-INF”文件夹同一层次的目录存放的是 JSP、HTMl等页面文件。</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>Web描述文件</p>
+<ul>
+<li>Web描述文件指的是“web.xml”。是整个Web应用程序的配置文件，通过它定义 Servlet、过滤器、监听器和一些参数等信息，（定义的是4个哦）。Web容器通过该文件的配置来控制整个Web应用程序的行为方式，详细配置见JavaWeb05。</li>
+</ul>
+</li>
+<li><p>Servlet</p>
+<ul>
+<li>Servlet是服务器端处理HTTP请求的基本组成单元，包括JSP、过滤器等在内的许多技术都基于或依赖于Servlet而实现。Servlet是符合一定规范的Java类，它存活于Web容器里面，由容器来控制Servlet的生命周期。</li>
+</ul>
+</li>
+<li><p>JSP</p>
+<ul>
+<li>JSP是参考其他动态语言而设计的，脚本语言是Java，但是它的本质也是Servlet,它比其他动态语言更强大。JSP作为Java web开发不可或缺的一部分，在大多数开发中，它往往只是用于显示数据的，而很少负责业务逻辑。</li>
+<li>熟悉JSP开发，并不意味者熟悉Java Web的开发，只能说是使用动态语言开发Web程序。</li>
+</ul>
+</li>
+</ul>
+<h3 id="JavaEE-与-NET技术比较"><a href="#JavaEE-与-NET技术比较" class="headerlink" title="JavaEE 与.NET技术比较"></a>JavaEE 与.NET技术比较</h3><p>略。很多知识需要自己学会上网求知。</p>
+<hr>
+<p>虽然有时候我走的很慢，但我相信自己可以走的更远！加油！！！</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    StormWangxhu
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://StormWangxhu.github.io/2018/01/24/JavaWeb01/" title="Java 语言和 Web 应用开发描述">https://StormWangxhu.github.io/2018/01/24/JavaWeb01/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaWeb/" rel="tag"># JavaWeb</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/23/-开启Java-Web之门/" rel="next" title="开启 JavaWeb 之门">
+                <i class="fa fa-chevron-left"></i> 开启 JavaWeb 之门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/25/--驾驭Java-Web开发环境/" rel="prev" title="驾驭 JavaWeb 开发环境">
+                驾驭 JavaWeb 开发环境 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar_3.jpg"
+                alt="StormWangxhu" />
+            
+              <p class="site-author-name" itemprop="name">StormWangxhu</p>
+              <p class="site-description motion-element" itemprop="description">路漫漫其修远兮，吾将上下而求索。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/StormWangxhu" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://javisma.github.io/" title="JarvisMa" target="_blank">JarvisMa</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://bryancrash.site/" title="bryan" target="_blank">bryan</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://abra.wang/" title="Abra" target="_blank">Abra</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://xiaomu.bitcron.com/" title="Tech小穆" target="_blank">Tech小穆</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java语言简介"><span class="nav-number">1.</span> <span class="nav-text"><a href="#Java&#x8BED;&#x8A00;&#x7B80;&#x4ECB;" class="headerlink" title="Java&#x8BED;&#x8A00;&#x7B80;&#x4ECB;"></a>Java&#x8BED;&#x8A00;&#x7B80;&#x4ECB;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java语言的特点："><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#Java&#x8BED;&#x8A00;&#x7684;&#x7279;&#x70B9;&#xFF1A;" class="headerlink" title="Java&#x8BED;&#x8A00;&#x7684;&#x7279;&#x70B9;&#xFF1A;"></a>Java&#x8BED;&#x8A00;&#x7684;&#x7279;&#x70B9;&#xFF1A;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java语言的发展现状："><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#Java&#x8BED;&#x8A00;&#x7684;&#x53D1;&#x5C55;&#x73B0;&#x72B6;&#xFF1A;" class="headerlink" title="Java&#x8BED;&#x8A00;&#x7684;&#x53D1;&#x5C55;&#x73B0;&#x72B6;&#xFF1A;"></a>Java&#x8BED;&#x8A00;&#x7684;&#x53D1;&#x5C55;&#x73B0;&#x72B6;&#xFF1A;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java语言的发展前景："><span class="nav-number">1.3.</span> <span class="nav-text"><a href="#Java&#x8BED;&#x8A00;&#x7684;&#x53D1;&#x5C55;&#x524D;&#x666F;&#xFF1A;" class="headerlink" title="Java&#x8BED;&#x8A00;&#x7684;&#x53D1;&#x5C55;&#x524D;&#x666F;&#xFF1A;"></a>Java&#x8BED;&#x8A00;&#x7684;&#x53D1;&#x5C55;&#x524D;&#x666F;&#xFF1A;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web应用开发简介"><span class="nav-number">2.</span> <span class="nav-text"><a href="#Web&#x5E94;&#x7528;&#x5F00;&#x53D1;&#x7B80;&#x4ECB;" class="headerlink" title="Web&#x5E94;&#x7528;&#x5F00;&#x53D1;&#x7B80;&#x4ECB;"></a>Web&#x5E94;&#x7528;&#x5F00;&#x53D1;&#x7B80;&#x4ECB;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Web程序的运行机制："><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#Web&#x7A0B;&#x5E8F;&#x7684;&#x8FD0;&#x884C;&#x673A;&#x5236;&#xFF1A;" class="headerlink" title="Web&#x7A0B;&#x5E8F;&#x7684;&#x8FD0;&#x884C;&#x673A;&#x5236;&#xFF1A;"></a>Web&#x7A0B;&#x5E8F;&#x7684;&#x8FD0;&#x884C;&#x673A;&#x5236;&#xFF1A;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web的特点："><span class="nav-number">2.2.</span> <span class="nav-text"><a href="#Web&#x7684;&#x7279;&#x70B9;&#xFF1A;" class="headerlink" title="Web&#x7684;&#x7279;&#x70B9;&#xFF1A;"></a>Web&#x7684;&#x7279;&#x70B9;&#xFF1A;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web技术的发展"><span class="nav-number">2.3.</span> <span class="nav-text"><a href="#Web&#x6280;&#x672F;&#x7684;&#x53D1;&#x5C55;" class="headerlink" title="Web&#x6280;&#x672F;&#x7684;&#x53D1;&#x5C55;"></a>Web&#x6280;&#x672F;&#x7684;&#x53D1;&#x5C55;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发一个Web应用的基本步骤"><span class="nav-number">2.4.</span> <span class="nav-text"><a href="#&#x5F00;&#x53D1;&#x4E00;&#x4E2A;Web&#x5E94;&#x7528;&#x7684;&#x57FA;&#x672C;&#x6B65;&#x9AA4;" class="headerlink" title="&#x5F00;&#x53D1;&#x4E00;&#x4E2A;Web&#x5E94;&#x7528;&#x7684;&#x57FA;&#x672C;&#x6B65;&#x9AA4;"></a>&#x5F00;&#x53D1;&#x4E00;&#x4E2A;Web&#x5E94;&#x7528;&#x7684;&#x57FA;&#x672C;&#x6B65;&#x9AA4;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用Java进行Web用开发"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x7528;Java&#x8FDB;&#x884C;Web&#x7528;&#x5F00;&#x53D1;" class="headerlink" title="&#x7528;Java&#x8FDB;&#x884C;Web&#x7528;&#x5F00;&#x53D1;"></a>&#x7528;Java&#x8FDB;&#x884C;Web&#x7528;&#x5F00;&#x53D1;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-Web开发的基本思想"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#Java-Web&#x5F00;&#x53D1;&#x7684;&#x57FA;&#x672C;&#x601D;&#x60F3;" class="headerlink" title="Java Web&#x5F00;&#x53D1;&#x7684;&#x57FA;&#x672C;&#x601D;&#x60F3;"></a>Java Web&#x5F00;&#x53D1;&#x7684;&#x57FA;&#x672C;&#x601D;&#x60F3;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaEE-与-NET技术比较"><span class="nav-number">3.2.</span> <span class="nav-text"><a href="#JavaEE-&#x4E0E;-NET&#x6280;&#x672F;&#x6BD4;&#x8F83;" class="headerlink" title="JavaEE &#x4E0E;.NET&#x6280;&#x672F;&#x6BD4;&#x8F83;"></a>JavaEE &#x4E0E;.NET&#x6280;&#x672F;&#x6BD4;&#x8F83;</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StormWangxhu</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v="></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v="></script>
+<script type="text/javascript" src="/js/src/post-details.js?v="></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v="></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,QQZone";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,QQZone";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v="></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v="></script>
+
+
+  
+
+</body>
+</html>

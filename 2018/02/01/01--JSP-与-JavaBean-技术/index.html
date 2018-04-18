@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaWeb," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="StormWangxhu' s blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="主要学习以下知识点：  可重用组件：组件的概念和组件存在的意义。 JavaBean的定义规则和JSP使用JavaBeande用法和示例。 如何使用JavaBean封装数据库操作。 JSP+JavaBean实现分页查询以及两种分页实现形式。  可重用组件JavaBean简介什么是可重用组件定义：能够完成某种特定功能，并提供一个或多个访问接口的聚合模板程序。 最大特点：可重复使用。 最重要两类组件：J">
+<meta name="keywords" content="JavaWeb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSP 与 JavaBean 技术">
+<meta property="og:url" content="https://StormWangxhu.github.io/2018/02/01/01--JSP-与-JavaBean-技术/index.html">
+<meta property="og:site_name" content="StormWangxhu&#39; s blog">
+<meta property="og:description" content="主要学习以下知识点：  可重用组件：组件的概念和组件存在的意义。 JavaBean的定义规则和JSP使用JavaBeande用法和示例。 如何使用JavaBean封装数据库操作。 JSP+JavaBean实现分页查询以及两种分页实现形式。  可重用组件JavaBean简介什么是可重用组件定义：能够完成某种特定功能，并提供一个或多个访问接口的聚合模板程序。 最大特点：可重复使用。 最重要两类组件：J">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-01T04:02:33.191Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JSP 与 JavaBean 技术">
+<meta name="twitter:description" content="主要学习以下知识点：  可重用组件：组件的概念和组件存在的意义。 JavaBean的定义规则和JSP使用JavaBeande用法和示例。 如何使用JavaBean封装数据库操作。 JSP+JavaBean实现分页查询以及两种分页实现形式。  可重用组件JavaBean简介什么是可重用组件定义：能够完成某种特定功能，并提供一个或多个访问接口的聚合模板程序。 最大特点：可重复使用。 最重要两类组件：J">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://StormWangxhu.github.io/2018/02/01/01--JSP-与-JavaBean-技术/"/>
+
+
+
+
+
+  <title>JSP 与 JavaBean 技术 | StormWangxhu' s blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">StormWangxhu' s blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+      <a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://StormWangxhu.github.io/2018/02/01/01--JSP-与-JavaBean-技术/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StormWangxhu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar_3.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="StormWangxhu' s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JSP 与 JavaBean 技术</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-01T00:00:00+08:00">
+                2018-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaWeb核心篇/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaWeb核心篇</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>主要学习以下知识点：</p>
+<ul>
+<li>可重用组件：组件的概念和组件存在的意义。</li>
+<li>JavaBean的定义规则和JSP使用JavaBeande用法和示例。</li>
+<li>如何使用JavaBean封装数据库操作。</li>
+<li>JSP+JavaBean实现分页查询以及两种分页实现形式。</li>
+</ul>
+<h2 id="可重用组件JavaBean简介"><a href="#可重用组件JavaBean简介" class="headerlink" title="可重用组件JavaBean简介"></a>可重用组件JavaBean简介</h2><h3 id="什么是可重用组件"><a href="#什么是可重用组件" class="headerlink" title="什么是可重用组件"></a>什么是可重用组件</h3><p>定义：能够完成某种特定功能，并提供一个或多个访问接口的聚合模板程序。</p>
+<p>最大特点：可重复使用。</p>
+<p>最重要两类组件：JavaBean、EJB（Enterprise JavaBean）</p>
+<p>主要学习JavaBean：</p>
+<p>本质：JavaBean本质是一个普通Java类，但此类须符合一定的规则，即JavaBean规范。</p>
+<h3 id="JavaBean规范："><a href="#JavaBean规范：" class="headerlink" title="JavaBean规范："></a>JavaBean规范：</h3><ul>
+<li>是一个公共类（public class）</li>
+</ul>
+<ul>
+<li>setXXX和getXXX方法：决定JavaBean的属性。</li>
+<li>有一个公开的无参数的构造方法。</li>
+</ul>
+<blockquote>
+<p>注意： JavaBean类一般会实现 java.io.Serializable接口，代表可序列化。虽不是必须，但有益于JavaBean对象的复制，比如：服务器集群时，若JavaBean保存在Session中，JavaBean就需要在网络中进行复制，此时，需要序列化。</p>
+</blockquote>
+<p>属性：是JavaBean与外部程序通信的接口。</p>
+<p>属性命名规范：</p>
+<ul>
+<li>set/get+属性名（属性名第一个字母须大写）</li>
+<li>对于boolean类型属性，用is代替set、get。</li>
+</ul>
+<p>属性不一定是成员变量，成员变量不一定是属性。</p>
+<h2 id="JSP使用JavaBean"><a href="#JSP使用JavaBean" class="headerlink" title="JSP使用JavaBean"></a>JSP使用JavaBean</h2><h3 id="JSP如何使用JavaBean"><a href="#JSP如何使用JavaBean" class="headerlink" title="JSP如何使用JavaBean"></a>JSP如何使用JavaBean</h3><p>一般来说，JSP完成一项特定功能，有3中实现方式。</p>
+<ul>
+<li>在HTML代码中夹杂java语言写成jsp脚本，功能逻辑就在java语言中完成。缺点明显，代码可读性差，很难维护。</li>
+<li>把功能包装在一个JavaBean内，然后在jsp脚本中，用new 操作符实例化这个JavaBean，再调用setXXX和getXXX()方法来完成特定功能。维护较好，可读性仍不好。</li>
+<li>同样，把逻辑功能包装在JavaBean内，再利用jsp动作标签（<jsp:uesbean>）访问JavaBean的属性。这种方式比第二种耦合度进一步低一点。值得推荐！！！！！</jsp:uesbean></li>
+</ul>
+<p>三个例子：功能很简单，每次请求返回用户名以及当前的日期和时间。</p>
+<h4 id="纯JSP实现"><a href="#纯JSP实现" class="headerlink" title="纯JSP实现"></a>纯JSP实现</h4><p>Jsp脚本夹杂在HTML代码中间。</p>
+<p>图片</p>
+<h4 id="Jsp用实例化的方式使用JavaBean"><a href="#Jsp用实例化的方式使用JavaBean" class="headerlink" title="Jsp用实例化的方式使用JavaBean"></a>Jsp用实例化的方式使用JavaBean</h4><p>图片</p>
+<h4 id="用Jsp动作标签访问JavaBean"><a href="#用Jsp动作标签访问JavaBean" class="headerlink" title="用Jsp动作标签访问JavaBean"></a>用Jsp动作标签访问JavaBean</h4><p>图片</p>
+<h4 id="JSP业务代码实现方式对比"><a href="#JSP业务代码实现方式对比" class="headerlink" title="JSP业务代码实现方式对比"></a>JSP业务代码实现方式对比</h4><p>图片</p>
+<h3 id="JSP使用JavaBean的标签详解"><a href="#JSP使用JavaBean的标签详解" class="headerlink" title="JSP使用JavaBean的标签详解"></a>JSP使用JavaBean的标签详解</h3><p>动作标签作用：分离显示代码和逻辑代码。讲一下<jsp:usebean>、<jsp:setproperty>、<jsp:getproperty> 。标签属性值不同导致他们会有不同行为。</jsp:getproperty></jsp:setproperty></jsp:usebean></p>
+<h4 id="定义JavaBean动作标签"><a href="#定义JavaBean动作标签" class="headerlink" title="定义JavaBean动作标签"></a>定义JavaBean动作标签<jsp:usebean></jsp:usebean></h4><p>标签作用：用于特定范围内查找或者实例化一个JavaBean,基本语法如下：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:useBean</span><br><span class="line">id =<span class="string">"唯一标识名字"</span></span><br><span class="line">scope=<span class="string">" page | request | session |  application "</span></span><br><span class="line">type=<span class="string">"父类型或已实现接口"</span></span><br><span class="line"><span class="class"><span class="keyword">class</span></span>=<span class="string">"实现类名"</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<p>下表对<jsp:usebean> 属性和说明</jsp:usebean></p>
+<p>图page160</p>
+<p><jsp:usebean> 动作标签的基本工作机制如下：</jsp:usebean></p>
+<ul>
+<li>在制定范围内（scope）寻找是否已有名字为id属性指定的对象。</li>
+<li>若存在，且指定type属性，则用该type属性做一次强制类型转换后再返回该对象的引用；若没有指定type属性，则直接返回该对象引用。</li>
+<li>若不存在，则用class属性指定的类实例化一个新的对象并返回，并将该对象保存在scope内。</li>
+</ul>
+<h3 id="设置JavaBean属性动作标签"><a href="#设置JavaBean属性动作标签" class="headerlink" title="设置JavaBean属性动作标签"></a>设置JavaBean属性动作标签<jsp:setproperty></jsp:setproperty></h3><p><jsp:setproperty> 是为JavaBean的可写属性赋值，它既可以放在<jsp:usebean> 中间，也可以单独使用。</jsp:usebean></jsp:setproperty></p>
+<p>基本语法：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:setProperty</span><br><span class="line">	name=<span class="string">"与JavaBean的id属性相同"</span></span><br><span class="line">	property=<span class="string">"可写属性名"</span></span><br><span class="line">	value=<span class="string">"字面值"</span></span><br><span class="line">	param=<span class="string">"请求参数的名字"</span></span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
+<p>下表对<jsp:setproperty> 属性和说明：</jsp:setproperty></p>
+<p>图page160</p>
+<p><jsp:setproperty> 用于设置JavaBean属性的值，这些值可以来源多种地方，下面几种是比较常用的属性赋值方法，按需选择：</jsp:setproperty></p>
+<ul>
+<li><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:setProperty name=<span class="string">"bean"</span> property=<span class="string">"prop"</span> value=<span class="string">"string contant"</span>/&gt;   <span class="comment">//直接赋字面值</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:setProperty name=<span class="string">"bean"</span> property=<span class="string">"prop"</span> param=<span class="string">"paramName"</span>/&gt;   <span class="comment">//赋指定请求参数的值</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:setProperty name=<span class="string">"bean"</span> property=<span class="string">"prop"</span>/&gt;  <span class="comment">//赋同名的请求参数</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:setProperty name=<span class="string">"bean"</span> property=<span class="string">"*"</span>/&gt;  <span class="comment">//将所有属性一一与请求参数按名匹配赋值。</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:setProperty name=<span class="string">"bean"</span> property=<span class="string">"prop"</span> value=<span class="string">"&lt;%=expression%&gt;"</span>/&gt;   <span class="comment">//赋表达式的值。</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>技巧：当Bean需要从请求参数里获取值的话，第二条会经常用到。</p>
+<h3 id="获取JavaBean属性动作标签"><a href="#获取JavaBean属性动作标签" class="headerlink" title="获取JavaBean属性动作标签"></a>获取JavaBean属性动作标签<jsp:getproperty></jsp:getproperty></h3><p><jsp:getproperty> 是获取JavaBean的可读属性。既可以放在<jsp:usebean> 中间。也可以单独使用，用法简单。</jsp:usebean></jsp:getproperty></p>
+<p>语法格式：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:getProperty</span><br><span class="line">	name=<span class="string">"与JavaBean的id属性值相同"</span></span><br><span class="line">	property=<span class="string">"可读属性名"</span></span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
+<p>下表对&lt;jsp:useBean```性和说明</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    StormWangxhu
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://StormWangxhu.github.io/2018/02/01/01--JSP-与-JavaBean-技术/" title="JSP 与 JavaBean 技术">https://StormWangxhu.github.io/2018/02/01/01--JSP-与-JavaBean-技术/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaWeb/" rel="tag"># JavaWeb</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/01/01--软件体系、Tomcat、Http协议/" rel="next" title="软件体系、Tomcat、Http协议">
+                <i class="fa fa-chevron-left"></i> 软件体系、Tomcat、Http协议
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/01/01--JavaWeb-请求（request）和响应（response）/" rel="prev" title="JavaWeb 请求（request）和响应（response）">
+                JavaWeb 请求（request）和响应（response） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar_3.jpg"
+                alt="StormWangxhu" />
+            
+              <p class="site-author-name" itemprop="name">StormWangxhu</p>
+              <p class="site-description motion-element" itemprop="description">路漫漫其修远兮，吾将上下而求索。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/StormWangxhu" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://javisma.github.io/" title="JarvisMa" target="_blank">JarvisMa</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://bryancrash.site/" title="bryan" target="_blank">bryan</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://abra.wang/" title="Abra" target="_blank">Abra</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://xiaomu.bitcron.com/" title="Tech小穆" target="_blank">Tech小穆</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#可重用组件JavaBean简介"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x53EF;&#x91CD;&#x7528;&#x7EC4;&#x4EF6;JavaBean&#x7B80;&#x4ECB;" class="headerlink" title="&#x53EF;&#x91CD;&#x7528;&#x7EC4;&#x4EF6;JavaBean&#x7B80;&#x4ECB;"></a>&#x53EF;&#x91CD;&#x7528;&#x7EC4;&#x4EF6;JavaBean&#x7B80;&#x4ECB;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是可重用组件"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#&#x4EC0;&#x4E48;&#x662F;&#x53EF;&#x91CD;&#x7528;&#x7EC4;&#x4EF6;" class="headerlink" title="&#x4EC0;&#x4E48;&#x662F;&#x53EF;&#x91CD;&#x7528;&#x7EC4;&#x4EF6;"></a>&#x4EC0;&#x4E48;&#x662F;&#x53EF;&#x91CD;&#x7528;&#x7EC4;&#x4EF6;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaBean规范："><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#JavaBean&#x89C4;&#x8303;&#xFF1A;" class="headerlink" title="JavaBean&#x89C4;&#x8303;&#xFF1A;"></a>JavaBean&#x89C4;&#x8303;&#xFF1A;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSP使用JavaBean"><span class="nav-number">2.</span> <span class="nav-text"><a href="#JSP&#x4F7F;&#x7528;JavaBean" class="headerlink" title="JSP&#x4F7F;&#x7528;JavaBean"></a>JSP&#x4F7F;&#x7528;JavaBean</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP如何使用JavaBean"><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#JSP&#x5982;&#x4F55;&#x4F7F;&#x7528;JavaBean" class="headerlink" title="JSP&#x5982;&#x4F55;&#x4F7F;&#x7528;JavaBean"></a>JSP&#x5982;&#x4F55;&#x4F7F;&#x7528;JavaBean</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#纯JSP实现"><span class="nav-number">2.1.1.</span> <span class="nav-text"><a href="#&#x7EAF;JSP&#x5B9E;&#x73B0;" class="headerlink" title="&#x7EAF;JSP&#x5B9E;&#x73B0;"></a>&#x7EAF;JSP&#x5B9E;&#x73B0;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Jsp用实例化的方式使用JavaBean"><span class="nav-number">2.1.2.</span> <span class="nav-text"><a href="#Jsp&#x7528;&#x5B9E;&#x4F8B;&#x5316;&#x7684;&#x65B9;&#x5F0F;&#x4F7F;&#x7528;JavaBean" class="headerlink" title="Jsp&#x7528;&#x5B9E;&#x4F8B;&#x5316;&#x7684;&#x65B9;&#x5F0F;&#x4F7F;&#x7528;JavaBean"></a>Jsp&#x7528;&#x5B9E;&#x4F8B;&#x5316;&#x7684;&#x65B9;&#x5F0F;&#x4F7F;&#x7528;JavaBean</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用Jsp动作标签访问JavaBean"><span class="nav-number">2.1.3.</span> <span class="nav-text"><a href="#&#x7528;Jsp&#x52A8;&#x4F5C;&#x6807;&#x7B7E;&#x8BBF;&#x95EE;JavaBean" class="headerlink" title="&#x7528;Jsp&#x52A8;&#x4F5C;&#x6807;&#x7B7E;&#x8BBF;&#x95EE;JavaBean"></a>&#x7528;Jsp&#x52A8;&#x4F5C;&#x6807;&#x7B7E;&#x8BBF;&#x95EE;JavaBean</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSP业务代码实现方式对比"><span class="nav-number">2.1.4.</span> <span class="nav-text"><a href="#JSP&#x4E1A;&#x52A1;&#x4EE3;&#x7801;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;&#x5BF9;&#x6BD4;" class="headerlink" title="JSP&#x4E1A;&#x52A1;&#x4EE3;&#x7801;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;&#x5BF9;&#x6BD4;"></a>JSP&#x4E1A;&#x52A1;&#x4EE3;&#x7801;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;&#x5BF9;&#x6BD4;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP使用JavaBean的标签详解"><span class="nav-number">2.2.</span> <span class="nav-text"><a href="#JSP&#x4F7F;&#x7528;JavaBean&#x7684;&#x6807;&#x7B7E;&#x8BE6;&#x89E3;" class="headerlink" title="JSP&#x4F7F;&#x7528;JavaBean&#x7684;&#x6807;&#x7B7E;&#x8BE6;&#x89E3;"></a>JSP&#x4F7F;&#x7528;JavaBean&#x7684;&#x6807;&#x7B7E;&#x8BE6;&#x89E3;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义JavaBean动作标签"><span class="nav-number">2.2.1.</span> <span class="nav-text"><a href="#&#x5B9A;&#x4E49;JavaBean&#x52A8;&#x4F5C;&#x6807;&#x7B7E;" class="headerlink" title="&#x5B9A;&#x4E49;JavaBean&#x52A8;&#x4F5C;&#x6807;&#x7B7E;"></a>&#x5B9A;&#x4E49;JavaBean&#x52A8;&#x4F5C;&#x6807;&#x7B7E;<jsp:usebean></jsp:usebean></span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置JavaBean属性动作标签"><span class="nav-number">2.3.</span> <span class="nav-text"><a href="#&#x8BBE;&#x7F6E;JavaBean&#x5C5E;&#x6027;&#x52A8;&#x4F5C;&#x6807;&#x7B7E;" class="headerlink" title="&#x8BBE;&#x7F6E;JavaBean&#x5C5E;&#x6027;&#x52A8;&#x4F5C;&#x6807;&#x7B7E;"></a>&#x8BBE;&#x7F6E;JavaBean&#x5C5E;&#x6027;&#x52A8;&#x4F5C;&#x6807;&#x7B7E;<jsp:setproperty></jsp:setproperty></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取JavaBean属性动作标签"><span class="nav-number">2.4.</span> <span class="nav-text"><a href="#&#x83B7;&#x53D6;JavaBean&#x5C5E;&#x6027;&#x52A8;&#x4F5C;&#x6807;&#x7B7E;" class="headerlink" title="&#x83B7;&#x53D6;JavaBean&#x5C5E;&#x6027;&#x52A8;&#x4F5C;&#x6807;&#x7B7E;"></a>&#x83B7;&#x53D6;JavaBean&#x5C5E;&#x6027;&#x52A8;&#x4F5C;&#x6807;&#x7B7E;<jsp:getproperty></jsp:getproperty></span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StormWangxhu</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v="></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v="></script>
+<script type="text/javascript" src="/js/src/post-details.js?v="></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v="></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,QQZone";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,QQZone";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v="></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v="></script>
+
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaWeb," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="StormWangxhu' s blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="学习完了XML，再一起看看JSP。我知道这些都太浅薄了，但是可以知道他是个干啥的，权当做了解吧。主要有以下知识点：  了解JSP页面基本组成 使用JSP指令标识 使用JSP脚本 巧用注释 常用JSP动作标识 上机实践 应用Java程序片段动态生成表格 将页面转发到用户登陆页面 应用JavaBean保存图片信息    了解JSP页面基本构成JSP是基于Java语言的动态网页技术，以“.jsp”为拓展">
+<meta name="keywords" content="JavaWeb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaWeb必修课之JSP语法">
+<meta property="og:url" content="https://StormWangxhu.github.io/2018/01/28/28--JavaWeb必修课之JSP语法/index.html">
+<meta property="og:site_name" content="StormWangxhu&#39; s blog">
+<meta property="og:description" content="学习完了XML，再一起看看JSP。我知道这些都太浅薄了，但是可以知道他是个干啥的，权当做了解吧。主要有以下知识点：  了解JSP页面基本组成 使用JSP指令标识 使用JSP脚本 巧用注释 常用JSP动作标识 上机实践 应用Java程序片段动态生成表格 将页面转发到用户登陆页面 应用JavaBean保存图片信息    了解JSP页面基本构成JSP是基于Java语言的动态网页技术，以“.jsp”为拓展">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-31T07:43:01.242Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaWeb必修课之JSP语法">
+<meta name="twitter:description" content="学习完了XML，再一起看看JSP。我知道这些都太浅薄了，但是可以知道他是个干啥的，权当做了解吧。主要有以下知识点：  了解JSP页面基本组成 使用JSP指令标识 使用JSP脚本 巧用注释 常用JSP动作标识 上机实践 应用Java程序片段动态生成表格 将页面转发到用户登陆页面 应用JavaBean保存图片信息    了解JSP页面基本构成JSP是基于Java语言的动态网页技术，以“.jsp”为拓展">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://StormWangxhu.github.io/2018/01/28/28--JavaWeb必修课之JSP语法/"/>
+
+
+
+
+
+  <title>JavaWeb必修课之JSP语法 | StormWangxhu' s blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">StormWangxhu' s blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+      <a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://StormWangxhu.github.io/2018/01/28/28--JavaWeb必修课之JSP语法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="StormWangxhu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar_3.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="StormWangxhu' s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaWeb必修课之JSP语法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-28T00:00:00+08:00">
+                2018-01-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaWeb起步篇/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaWeb起步篇</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>学习完了XML，再一起看看JSP。我知道这些都太浅薄了，但是可以知道他是个干啥的，权当做了解吧。主要有以下知识点：</p>
+<ul>
+<li>了解JSP页面基本组成</li>
+<li>使用JSP指令标识</li>
+<li>使用JSP脚本</li>
+<li>巧用注释</li>
+<li>常用JSP动作标识</li>
+<li>上机实践<ul>
+<li>应用Java程序片段动态生成表格</li>
+<li>将页面转发到用户登陆页面</li>
+<li>应用JavaBean保存图片信息</li>
+</ul>
+</li>
+</ul>
+<h2 id="了解JSP页面基本构成"><a href="#了解JSP页面基本构成" class="headerlink" title="了解JSP页面基本构成"></a>了解JSP页面基本构成</h2><p>JSP是基于Java语言的动态网页技术，以“.jsp”为拓展名。一个JSP页面主要由以下构成：</p>
+<ul>
+<li>指令标识</li>
+<li>HTML代码</li>
+<li>JavaScript代码</li>
+<li>嵌入的Java代码</li>
+<li>注释</li>
+<li>JSP动作标识</li>
+</ul>
+<p>但以上内容并不是一个JSP页面所必须的。下面来看一个程序：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">"java"</span> contentType=<span class="string">"text/html; charset=UTF-8%&gt;</span></span><br><span class="line"><span class="string">&lt;%@ page pageEncoding="</span>UTF-<span class="number">8</span><span class="string">"%&gt;</span></span><br><span class="line"><span class="string">&lt;%@ page import="</span>java.util.Date<span class="string">"%&gt;</span></span><br><span class="line"><span class="string">&lt;%@ page import="</span>java.text.SimpleDateFormat<span class="string">"%&gt;</span></span><br><span class="line"><span class="string">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="string">&lt;html&gt;</span></span><br><span class="line"><span class="string">    &lt;head&gt;</span></span><br><span class="line"><span class="string">        &lt;meta http-equiv="</span>Content-Type<span class="string">" content="</span>text/html; charset=UTF-<span class="number">8</span><span class="string">"&gt;</span></span><br><span class="line"><span class="string">        &lt;title&gt;一个简单的 JSP 页面---显示系统时间&lt;/title&gt;</span></span><br><span class="line"><span class="string">    &lt;/head&gt;</span></span><br><span class="line"><span class="string">    &lt;body&gt;</span></span><br><span class="line"><span class="string">    	&lt;%</span></span><br><span class="line"><span class="string">    		Date date = new Date();  //获取日期对象</span></span><br><span class="line"><span class="string">    		//设置日期时间格式</span></span><br><span class="line"><span class="string">    		SimpleDateFormat sdf = new SimpleDateFormat("</span>yyyy-MM-dd HH:mm:ss<span class="string">");</span></span><br><span class="line"><span class="string">    		String today = sdf.format(date);</span></span><br><span class="line"><span class="string">    	%&gt;</span></span><br><span class="line"><span class="string">    	当前时间: &lt;% =today %&gt;</span></span><br><span class="line"><span class="string"> 	&lt;/body&gt;</span></span><br><span class="line"><span class="string">&lt;/html&gt;</span></span><br></pre></td></tr></table></figure>
+<p>接下来再看一下JSP文件在Web应用服务器中先后经历的4个关键（阶段）过程：</p>
+<p>文字描述：</p>
+<ul>
+<li>当浏览器向Web服务器请求一个JSP页面时，Web应用服务器转换为——Servlet文件（即一个.java文件）</li>
+<li>将.java文件翻译为——字节码文件（即一个,class文件）</li>
+<li>最后Web应用服务器加载转换后的Servlet实例，处理客户端的请求，并返回HTML格式的响应给客户端浏览器。</li>
+</ul>
+<p>图片描述：</p>
+<p>说明：Servlet定义在JavaEE API中，它实质是一个用Java语言编写的类，但能够接受以及回应Web请求。</p>
+<h2 id="使用JSP指令标识"><a href="#使用JSP指令标识" class="headerlink" title="使用JSP指令标识"></a>使用JSP指令标识</h2><p>指令标识作用：设置整个JSP页面范围内有效的相关信息，标识会被服务器解释执行，但不会产生任何内容输出到网页中。</p>
+<p>JSP包含3个指令标识，即：page、include、taglib。他们<strong>语法结构相同</strong>，定于方法如下：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ 指令名 属性<span class="number">1</span>=<span class="string">"属性1值"</span> 属性<span class="number">2</span>=<span class="string">"属性2值"</span> ...%&gt;</span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>指令名： 指定指令名，取值为：page、include、taglib指令。</li>
+<li>属性：指定属性名称，指令不同属性不同。若在某指令中设置多个属性，属性间用逗号隔开。</li>
+<li>属性值：指定属性值。</li>
+</ul>
+<h3 id="使用页面指令page"><a href="#使用页面指令page" class="headerlink" title="使用页面指令page"></a>使用页面指令page</h3><p>页面指令page：JSP页面最常用指令，必须要用指令。</p>
+<p>作用：定义与整个JSP页面相关的属性，如jsp页面编码、内容类型以及引用类型等。</p>
+<p>当这些属性被服务器解析成Servlet时会被转换为相应的Java程序代码。</p>
+<p>page指令语法格式：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page 属性<span class="number">1</span>=<span class="string">"属性值1"</span> 属性<span class="number">2</span>=<span class="string">"属性值2"</span> ...%&gt;</span><br></pre></td></tr></table></figure>
+<p>说明：</p>
+<ul>
+<li>page：声明指令为page指令。</li>
+<li>属性：指定page指令中的属性。</li>
+<li>属性值：指定属性值。</li>
+</ul>
+<p><strong>注意：指令名与@之间有一个空格。</strong></p>
+<p>page指令提供11个的属性：</p>
+<ul>
+<li>language：指定当前页面使用语言，目前只支持Java语言。属性默认值Java。</li>
+<li>contentType设置jsp页面MIME类型和字符编码，浏览器根据属性指定的类型和编码解析网页内容。</li>
+</ul>
+<p>比如：MIME=HTML文本，字符编码=UTF-8</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">"java"</span> contentType=<span class="string">"text/html; charseUTF-8 %&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>pageEncoding：设置jsp页面编码格式，在jsp页面中所代码都使用该属性指定的字符集。中文编码有（GBK/GB2312/UTF-8）。</li>
+</ul>
+<blockquote>
+<p>通常情况下，pageEncoding和contentType属性会同时存在。</p>
+<ul>
+<li>前者作用：指定jsp页面编码格式。若为非支持中文的字符集，则不能编写中文字符，否则乱码。</li>
+<li>后者作用：指定服务器处理请求完成后，回应给浏览器的内容的类型。如“text/html; charset=utf-8”，则说明回应的页面是html文档或文本内容，字符集为UTF-8。</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>import：导入jsp页面中的类包，导入后在jsp页面中可以通过嵌入java代码的方法使用这些类包。</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page <span class="keyword">import</span>=<span class="string">"java.util.Date"</span> %&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>buffer：设置out对象使用的缓冲区大小，默认大小 8KB，且单位只能是KB。建议开发人员使用8的倍数作为该属性的值。</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page buffer=<span class="string">"16KB"</span>%&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>autoFlush：指定当缓冲区已满时，自动将缓冲区中内容输出到客户端。默认值为true。若为false，当缓冲区满时，抛JSP Buffer overflow异常。</p>
+<p>如缓冲区满时，未自动将其内容输出到客户端代码：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page autoFlush=<span class="string">"false"</span>%&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>isErrorPage：设置当前页面为错误页面，以处理另一个错误页面。只有为true时，才可以调用exception对象输出错误信息。</p>
+<p>将当前页面设置为错误处理页面：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page isErrorPage=<span class="string">"true"</span> %&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>errorPage：指定当前页面出现异常时调用的另一个页面（即错误处理页面），须指定isErrorPage=”true”。</p>
+<p>如：指定当前页面出现异常时调用error.jsp。</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page errorPage=<span class="string">"error.jsp"</span> %&gt;</span><br></pre></td></tr></table></figure>
+<p>但在error.jsp页面中须设置如下代码：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page isErrorPage=<span class="string">"true"</span> %&gt;</span><br></pre></td></tr></table></figure>
+<p>然后在error.jsp中即可通过以下代码输出错误信息。</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%=exception.getMessage()%&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>session：指定当前页面是否支持session，默认值为true，即支持。</p>
+</li>
+<li><p>isELIgnored：指定是否禁用EL表达式，true表示页面将忽略EL表达式；否则将执行EL表达式。</p>
+</li>
+<li><p>isThreadSafe：指定JSP页面是否线程安全，true:表示jsp页面在同一时刻可以被多个线程访问，否则不可。</p>
+</li>
+</ul>
+<h3 id="使用文件包含指令include"><a href="#使用文件包含指令include" class="headerlink" title="使用文件包含指令include"></a>使用文件包含指令include</h3><p>作用：将一个JSP页面包含到另一个JSP页面中实现JSP页面的重用。包含过程如下：</p>
+<p>此处放图片</p>
+<p>说明：</p>
+<ul>
+<li>include指令为静态指令。被包含文件内容原样包含。但被包含文件内JSP代码，在包含时不会被编译执行。将两个页面组合在一起，最后返回结果页面。</li>
+<li>include：最终只生成一个文件。所以包含和被包含文件中不能有相同变量。</li>
+</ul>
+<p>语法格式：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ include file=<span class="string">"path"</span>%&gt;</span><br><span class="line">只有一个file属性，指定被包含文件路径。路径可相对可绝对路径。</span><br></pre></td></tr></table></figure>
+<p>技巧：</p>
+<p>通常情况下，网站页面头部（banner部分）、与底部（版权信息部分）都相同，可分别创建两个页面。然后通过include指令将其包含在其他页面中。</p>
+<h3 id="使用引用标签库指令taglib"><a href="#使用引用标签库指令taglib" class="headerlink" title="使用引用标签库指令taglib"></a>使用引用标签库指令taglib</h3><p>声明一个标签的引用，在JSP页面中声明哪个标签库的引用，即可在JSP页面中调用哪个标签。</p>
+<p>语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ taglib prefix=&quot;tagPrefix&quot; uri=&quot;tagURI&quot;%&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>taglib：声明指令为taglib指令。</li>
+<li>prefix：指定标签库的前缀。</li>
+<li>uri：指定标签库文件位置，</li>
+</ul>
+<p>如：引用JSTL中核心标签库可以使用下面代码：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ taglib prefix=<span class="string">"c"</span> uri=<span class="string">"http://java.sun.com/jsp/jstl/core"</span> %&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="使用-JSP脚本"><a href="#使用-JSP脚本" class="headerlink" title="使用 JSP脚本"></a>使用 JSP脚本</h2><p>JSP之所以应用灵活，主要原因是JSP页面中可以很方便的调用Java或脚本代码实现所需功能。</p>
+<p>JSP脚本标识：</p>
+<ul>
+<li>JSP表达式（Expression）</li>
+<li>声明标识（Declaration）</li>
+<li>脚本程序</li>
+</ul>
+<p>通过上述标识，在JSP页面可以如Java程序一样来生声明变量，定义方法或执行各种表达式的运算。</p>
+<h3 id="在JSP中应用代码片段"><a href="#在JSP中应用代码片段" class="headerlink" title="在JSP中应用代码片段"></a>在JSP中应用代码片段</h3><p>代码片段：在jsp中嵌入的Java或脚本代码。</p>
+<ul>
+<li>Java代码作用：定义变量、流程控制等。</li>
+<li>脚本代码作用：应用jsp的内置对象在页面输出内容、处理请求和响应并访问session对象。</li>
+</ul>
+<p>执行时间：将在页面请求的处理期间被执行。</p>
+<p>代码片段语法格式：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;% Java代码或脚本代码 %&gt;</span><br></pre></td></tr></table></figure>
+<p>使用方法：灵活，可以是Java代码，也可以是调用jsp提供的内置对象。</p>
+<p>关键代码：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;%</span><br><span class="line">    		<span class="keyword">int</span> num =<span class="number">1</span>;</span><br><span class="line">    		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;<span class="number">10</span>;i++)&#123;</span><br><span class="line">    			num*=i;</span><br><span class="line">    		&#125;</span><br><span class="line">    		out。print(<span class="string">"10的阶乘是："</span>+num);  <span class="comment">//out为jsp内置对象，输出到页面中。</span></span><br><span class="line"> %&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="使用JSP表达式"><a href="#使用JSP表达式" class="headerlink" title="使用JSP表达式"></a>使用JSP表达式</h3><p>jsp表达式作用：在页面中输出信息。</p>
+<p>使用方式：可插入到网页的文本用于输出文本内容，也可以插入到HTML标记中用于动态设置属性。</p>
+<p>jsp语法格式：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;%= 表达式 %&gt;</span><br><span class="line">说明：</span><br><span class="line">* 表达式可以是任何Java语言的完整表达式，其最终运算结果将被转换为字符串。</span><br><span class="line">* &lt;%与=之间不能有空格，否则会出现编译错误，但=与其他后面表达式之间可以有空格。</span><br></pre></td></tr></table></figure>
+<p>如：使用jsp表达式输出用户相关信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;%</span><br><span class="line">	String name=&quot;adnim&quot;;   //用户名</span><br><span class="line">	String sex=&quot;男&quot;;  //性别</span><br><span class="line">%&gt;</span><br><span class="line">用户名：&lt;%=name %&gt;</span><br><span class="line">性别：&lt;%=sex%&gt;</span><br></pre></td></tr></table></figure>
+<p>上述代码将会形成如下HTML代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">用户名：admin</span><br><span class="line">性别：男</span><br></pre></td></tr></table></figure>
+<h3 id="使用声明标识"><a href="#使用声明标识" class="headerlink" title="使用声明标识"></a>使用声明标识</h3><p>声明标识应用：定义全局成员变量以及成员方法。（遵循Java语法）</p>
+<p>语法格式：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;%! 声明变量或方法的代码 %&gt;</span><br><span class="line">说明：</span><br><span class="line">* 由于声明标识生声明的变量的是全局的，所以在多个用户并发访问是会产生线程安全问题，此种方式应用很少。</span><br></pre></td></tr></table></figure>
+<p>如：应用jsp声明统计认人数。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;%<span class="meta">@page</span> contentType=<span class="string">"text/html"</span>%&gt;</span><br><span class="line">&lt;%<span class="meta">@page</span> pageEncoding=<span class="string">"UTF-8"</span>%&gt;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;meta http-equiv=<span class="string">"Content-Type"</span> content=<span class="string">"text/html; charset=UTF-8"</span>&gt;</span><br><span class="line">        &lt;title&gt;JSP Page&lt;/title&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">    	&lt;%</span><br><span class="line">    		<span class="keyword">int</span> count=<span class="number">0</span>;</span><br><span class="line">    		<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCount</span><span class="params">()</span></span>&#123;</span><br><span class="line">    			count++;</span><br><span class="line">    			<span class="keyword">return</span> count ;</span><br><span class="line">    		&#125;</span><br><span class="line">    	%&gt;</span><br><span class="line">    	您好，您是本站的第</span><br><span class="line">    	&lt;%=getCount()%&gt;</span><br><span class="line">    	位来访者。</span><br><span class="line"> 	&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="巧用注释"><a href="#巧用注释" class="headerlink" title="巧用注释"></a>巧用注释</h2><h3 id="基本HTML注释"><a href="#基本HTML注释" class="headerlink" title="基本HTML注释"></a>基本HTML注释</h3><p>jsp页面同样可以使用HTML注释。</p>
+<p>语法格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 注释内容--&gt;</span><br></pre></td></tr></table></figure>
+<p>可以在注释中加入由jsp表达式指定的动态代码：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 注释内容&lt;%= 表达式 %&gt;--&gt;</span><br><span class="line">&lt;!-- 当前时间：&lt;%= <span class="keyword">new</span> java.util.Date().toLocalString()%&gt;--&gt;</span><br></pre></td></tr></table></figure>
+<p>注意：</p>
+<p>HTML注释并不是安全注释方式，可通过网页查看源代码方式查看编写的注释内容。</p>
+<h3 id="隐藏注释（安全性高）"><a href="#隐藏注释（安全性高）" class="headerlink" title="隐藏注释（安全性高）"></a>隐藏注释（安全性高）</h3><p>语法格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%-- 注释内容 --%&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="代码片段中的注释"><a href="#代码片段中的注释" class="headerlink" title="代码片段中的注释"></a>代码片段中的注释</h3><p>与java注释相同。</p>
+<p>单行注释：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//注释内容</span></span><br></pre></td></tr></table></figure>
+<p>多行注释：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/* 注释内容 */</span><br></pre></td></tr></table></figure>
+<p>JavaDoc注释：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">注释内容</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<h2 id="常用JSP动作标识"><a href="#常用JSP动作标识" class="headerlink" title="常用JSP动作标识"></a>常用JSP动作标识</h2><h3 id="使用包含动作标识"><a href="#使用包含动作标识" class="headerlink" title="使用包含动作标识"></a>使用包含动作标识<jsp:include></jsp:include></h3><p><strong>1、作用</strong>：<jsp:include> 动作标识用于包含其他页面，被包含页面可动态可静态页面。</jsp:include></p>
+<p><strong>2、原理</strong>：将被包含页面编译处理后将结果包含在页面中。</p>
+<p>原理如图所示：</p>
+<p>次处放图片。</p>
+<blockquote>
+<p>文字描述：当浏览器第一次请求1个 <jsp:include> 包含其他页面时，Web容器首先会编译包含的页面。然后将编译处理的返回结果包含在页面中，之后编译包含页面，最后将两个页面组合的结果回应给浏览器。</jsp:include></p>
+</blockquote>
+<p>说明：静态页面不需要编译即可被Web容器解析，所以若被包含页面为静态页面，将不会经历编译处理这一过程。</p>
+<p>3、基本语法：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:include page=<span class="string">"url"</span> flush=<span class="string">"false|true"</span> /&gt;</span><br></pre></td></tr></table></figure>
+<p>或者：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:include page=<span class="string">"url"</span> flush=<span class="string">"false|true"</span>&gt;</span><br><span class="line"> 	子动作标识&lt;jsp:param&gt;</span><br><span class="line">&lt;/jsp:include&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>page属性：指定文件的相对路径。</li>
+<li>flush：可选，设置是否刷新缓冲区。默认false。若为true，表当前页面输出使用缓冲区的情况下首先刷新缓冲区，然后执行操作。</li>
+</ul>
+<p><strong>4、此处说一下include指令和 <jsp:include> 区别：</jsp:include></strong></p>
+<p>include：</p>
+<ul>
+<li>include通过file属性来指定被包含的文件，且该属性不支持任何表达式；<jsp:include> 动作标识通过page属性指定被包含的文件，且该属性支持jsp表达式。</jsp:include></li>
+<li>include指令将被包含文件内容原封不动地插入到包含页面中，然后jsp编译器将合成后的文件最终编译为一个Java文件；使用<jsp:include> 动作标识包含文件，当该标识被执行时，程序会将请求转发（注意是转发，非重定向）到被包含的页面并将执行结果输出到浏览器中，然后返回包含页继续执行后面的代码。因为服务器执行多个文件，所以jsp编译器会分别编译这些文件。</jsp:include></li>
+<li>include指令包含文件时由于被包含文件最终会生成一个文件，所以在被包含文件和包含文件中不能有重名的变量或方法；<jsp:include> 动作标识包含文件时，由于每个文件单独编译，所以被包含文件和包含文件中重名的变量和方法不冲突！</jsp:include></li>
+</ul>
+<h3 id="使用请求转发的动作标识"><a href="#使用请求转发的动作标识" class="headerlink" title="使用请求转发的动作标识"></a>使用请求转发的动作标识<jsp:forward></jsp:forward></h3><p>1、作用：将当前请求转发到其他Web资源（HTML、JSP页面和Servlet页面）。在执行请求转发之后当前页面将不再执行，而是执行该标识指定的目标页面。</p>
+<p>2、基本流程如下图所示：</p>
+<p>此处有图片</p>
+<p>3、语法格式：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:forward page=<span class="string">"url"</span>/&gt;</span><br></pre></td></tr></table></figure>
+<p>或者：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:forward page=<span class="string">"url"</span>&gt;</span><br><span class="line">	子动作标识&lt;jsp:param&gt;</span><br><span class="line">&lt;/jsp:forward&gt;</span><br><span class="line">  </span><br><span class="line">注意：</span><br><span class="line">   使用&lt;jsp:forward&gt;请求转发被转向到目标资源必须与当前JSP页面处于同一上下文应用环境中，否则会出现页面找不到错误。</span><br></pre></td></tr></table></figure>
+<ul>
+<li>page属性：指定请求转发的目标页面，该属性值可以是一个指定文件路径的字符串或标识文件路径的JSP表达式。</li>
+</ul>
+<p>如：应用<jsp:forward> 动作标识将请求转发到用户登录界面login.jsp。</jsp:forward></p>
+<p>此页面是请求转发的目标页面，并没有实现用户登录的功能，表单action属性值为空。</p>
+<p>关键代码：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;form action=<span class="string">""</span>&gt;</span><br><span class="line">&lt;div&gt;</span><br><span class="line">	&lt;ul&gt;&lt;li&gt;&lt;h3&gt;用户登录&lt;/h3&gt;&lt;/li&gt;&lt;/ul&gt;</span><br><span class="line">	&lt;ul&gt;&lt;li&gt;用户名：&lt;input type="text" name="username"&gt;&lt;/li&gt;&lt;/ul&gt;</span><br><span class="line">	&lt;ul&gt;&lt;li&gt;密码：&lt;input type="password" name="password"&gt;&lt;/li&gt;&lt;/ul&gt;</span><br><span class="line">	&lt;ul&gt;&lt;li&gt;&lt;input type="button" value="登 录"&lt;/li&gt;&lt;/ul&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+<p>创建程序首页index.jsp.通过<jsp:forward> 动作标识请求转发到login.jsp。关键代码如下：</jsp:forward></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">&lt;jsp:forward page="login.jsp"&gt;&lt;/jsp:forward&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+<p>实例运行后，请求将被转发到用户登录页面。</p>
+<h3 id="使用子动作标识"><a href="#使用子动作标识" class="headerlink" title="使用子动作标识"></a>使用子动作标识<jsp:param></jsp:param></h3><p>1、作用：用于为其他标识传递参数。</p>
+<p>2、语法格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:param name=&quot;参数名&quot; value=&quot;参数值&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>name属性：指定参数名称。</li>
+<li>value属性：设置对应参数值。</li>
+</ul>
+<p>如：通过<jsp:param> 标识为<jsp:forward> 标识指定参数，可以使用下面的代码：</jsp:forward></jsp:param></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:forward page=<span class="string">"update.jsp"</span>&gt;</span><br><span class="line">	&lt;jsp:param name=<span class="string">"userId"</span> value=<span class="string">"1"</span>/&gt;</span><br><span class="line">&lt;/jsp:forward&gt;</span><br></pre></td></tr></table></figure>
+<p>上面代码实现在请求转发到update.jsp页面同时，传递参数userId，值为1。</p>
+<h3 id="使用动作标识-（重点）"><a href="#使用动作标识-（重点）" class="headerlink" title="使用动作标识 （重点）"></a>使用动作标识<jsp:usebean> （重点）</jsp:usebean></h3><p>1、作用：可在JSP页面中创建一个Bean实例，并且通过属性设置可以将该实例保存在JSP页面的指定范围内。若指定的Bean实例在指定范围内已经存在，则使用该实例，而不会新建。通过<jsp:usebean> 标识创建Bean实例可以在Scriptlet中应用。</jsp:usebean></p>
+<p>2、语法格式：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:useBean&gt;</span><br><span class="line">        id=<span class="string">"变量名"</span></span><br><span class="line">        scope=<span class="string">"page|request|session|application"</span></span><br><span class="line">        &#123;</span><br><span class="line">        <span class="class"><span class="keyword">class</span></span>=<span class="string">"package.className"</span>| type=<span class="string">"数据类型"</span>|</span><br><span class="line">		beanName=<span class="string">"package.className"</span> type=<span class="string">"数据类型"</span></span><br><span class="line">        &#125;/&gt;</span><br><span class="line">&lt;/jsp:setProperty name="变量名" property=“*”/&gt;</span><br></pre></td></tr></table></figure>
+<p>也可以在标识体内嵌入子标识或其他内容。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> &lt;jsp:useBean id=<span class="string">"变量名"</span> scope=<span class="string">"page|request|session|application"</span>&gt;</span><br><span class="line">	&lt;jsp:setProperty name=<span class="string">"变量名"</span> property=<span class="string">"*"</span>/&gt;</span><br><span class="line">&lt;/jsp:useBean&gt;</span><br></pre></td></tr></table></figure>
+<p>下图为<jsp:usebean> 标识中各属性用法。</jsp:usebean></p>
+<p>​                                       图片</p>
+<ul>
+<li>id属性：指定一个变量，在定义范围内或Scriptlet中将使用该变量来创建的Bean实例。该变量须符合Java变量命名规范。</li>
+<li>type属性：用于设置由id属性指定的变量类型，它可以指定要创建实例的类本身、类的父类或者是一个接口。</li>
+</ul>
+<p>使用type属性来设置变量类型语法格式如下：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:useBean id=<span class="string">"us"</span> type=<span class="string">"com.Bean.UserInfo"</span> scope=<span class="string">"session"</span>/&gt;</span><br></pre></td></tr></table></figure>
+<p>若在session范围内已经存在名为us的实例，则将该实例转换为type属性指定的UserInfo类型并复值给id属性指定的变量；若指定变量实例不存在，则抛出下面异常：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bean us not found within scope</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>scope属性：该属性指定创建Bean实例的取值范围，省略该属性时值为page。执行<jsp:usebean> 标识首先会在scope属性指定的范围内来查找指定的Bean实例，若该实例存在，则引用这个Bean;否则重建，并将其保存在scope属性指定的范围内。</jsp:usebean></p>
+<p> scope属性的可选值为：</p>
+<ul>
+<li><p>1、page：</p>
+</li>
+<li><p>2、request：指定创建的Bean实例可以在请求范围内存取，在请求被转发至目标页面中可通过request对象的getAttribute（“id属性值”）方法获取创建的Bean实例。一个请求的生命周期是从客户端向服务器发出一个请求到服务器响应这个请求给用户后结束，请求结束后保存在Bean中实例失效。</p>
+</li>
+<li><p>3、session：指定创建Bean实例有效范围为session，session是当用户访问Web应用时，服务器为用户创建的一个对象，服务器通过session的id值来区分用户。对某一用户而言，在该范围内中的对象可以被多个页面共享。</p>
+<p>可以使session对象的getAttribute（“id属性值”）方法获取创建的Bean实例。</p>
+</li>
+<li><p>4、application：指定创建的Bean实例的有效范围从服务器启动开始到服务器关闭结束。</p>
+<p>application对象在服务器启动时创建，被多个用户共享。所以访问该对象的所有用户共享保存在该对象中的Bean实例。</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>class属性：该属性指定一个完整的类名，package表包名称，className表示类的文件名称。通过class属性指定的类不能是抽象的，须具有公共且没有参数的构造方法。在未设置type属性时，须设置class属性。</p>
+<p>使用class属性定位一个类语法格式：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:useBean id=<span class="string">"us"</span><span class="class"><span class="keyword">class</span></span>=<span class="string">"com.Bean.UserInfo"</span>scope=<span class="string">"session"</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>程序首先在session范围内查找是否存在us的UserInfo实例，若不存在，则会通过new操作符实例化UserInfo类来获取一个实例，并以us为实例名保存在session范围内。上述用法<jsp:usebean> 标识转换为对应的Servlet代码：</jsp:usebean></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">com.Bean.UserInfo us=<span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">synchronized</span>(session)&#123;</span><br><span class="line">	<span class="comment">//获取sesssion范围内名为us的实例</span></span><br><span class="line">	us=(com.Bean.UserInfo) _jspx_page_content.getAttribute(<span class="string">"us"</span>,PageContent.SESSION_SCOPE);</span><br><span class="line">	<span class="keyword">if</span>(us==<span class="keyword">null</span>)&#123;		<span class="comment">//若实例不存在</span></span><br><span class="line">		us=<span class="keyword">new</span> com.Bean.UserInfo();			<span class="comment">//创建一个实例</span></span><br><span class="line">		_jspx_page_content.setAttribute(<span class="string">"us"</span>,us,PageContext.SESSION_SCOPE);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">说明：代码中_jspx_page_context对象为jsp中pageContext内置对象。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>class=”package.className” type=”数据类型”</p>
+<p>格式如下：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:useBean id=<span class="string">"us"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.Bean.UserInfo"</span> type=<span class="string">"com.Bean.UserBase"</span> scope=<span class="string">"session"</span>/&gt;</span><br></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+<li><p>beanName=”package.className” type=”数据类型”</p>
+<p>语法格式：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:useBean id=<span class="string">"us"</span> beanName=<span class="string">"com.Bean.UserInfo"</span> type=<span class="string">"com.Bean.UserBean"</span>/&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="使用动作标识"><a href="#使用动作标识" class="headerlink" title="使用动作标识"></a>使用动作标识<jsp:getproperty></jsp:getproperty></h3><h3 id="使用动作标识-1"><a href="#使用动作标识-1" class="headerlink" title="使用动作标识"></a>使用动作标识<jsp:setproperty></jsp:setproperty></h3><h2 id="上机实践"><a href="#上机实践" class="headerlink" title="上机实践"></a>上机实践</h2><h3 id="应用Java程序片段动态生成表格"><a href="#应用Java程序片段动态生成表格" class="headerlink" title="应用Java程序片段动态生成表格"></a>应用Java程序片段动态生成表格</h3><h3 id="将页面转发到用户登陆页面"><a href="#将页面转发到用户登陆页面" class="headerlink" title="将页面转发到用户登陆页面"></a>将页面转发到用户登陆页面</h3><h3 id="应用JavaBean保存图片信息"><a href="#应用JavaBean保存图片信息" class="headerlink" title="应用JavaBean保存图片信息"></a>应用JavaBean保存图片信息</h3><h3 id=""><a href="#" class="headerlink" title=" "></a> </h3><h3 id="-1"><a href="#-1" class="headerlink" title=" "></a> </h3>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    StormWangxhu
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://StormWangxhu.github.io/2018/01/28/28--JavaWeb必修课之JSP语法/" title="JavaWeb必修课之JSP语法">https://StormWangxhu.github.io/2018/01/28/28--JavaWeb必修课之JSP语法/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaWeb/" rel="tag"># JavaWeb</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/27/27--Web客户端技术基础之CSS/" rel="next" title="Web客户端技术基础之CSS">
+                <i class="fa fa-chevron-left"></i> Web客户端技术基础之CSS
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/01/01--软件体系、Tomcat、Http协议/" rel="prev" title="软件体系、Tomcat、Http协议">
+                软件体系、Tomcat、Http协议 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar_3.jpg"
+                alt="StormWangxhu" />
+            
+              <p class="site-author-name" itemprop="name">StormWangxhu</p>
+              <p class="site-description motion-element" itemprop="description">路漫漫其修远兮，吾将上下而求索。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/StormWangxhu" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://javisma.github.io/" title="JarvisMa" target="_blank">JarvisMa</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://bryancrash.site/" title="bryan" target="_blank">bryan</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://abra.wang/" title="Abra" target="_blank">Abra</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://xiaomu.bitcron.com/" title="Tech小穆" target="_blank">Tech小穆</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#了解JSP页面基本构成"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x4E86;&#x89E3;JSP&#x9875;&#x9762;&#x57FA;&#x672C;&#x6784;&#x6210;" class="headerlink" title="&#x4E86;&#x89E3;JSP&#x9875;&#x9762;&#x57FA;&#x672C;&#x6784;&#x6210;"></a>&#x4E86;&#x89E3;JSP&#x9875;&#x9762;&#x57FA;&#x672C;&#x6784;&#x6210;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用JSP指令标识"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x4F7F;&#x7528;JSP&#x6307;&#x4EE4;&#x6807;&#x8BC6;" class="headerlink" title="&#x4F7F;&#x7528;JSP&#x6307;&#x4EE4;&#x6807;&#x8BC6;"></a>&#x4F7F;&#x7528;JSP&#x6307;&#x4EE4;&#x6807;&#x8BC6;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用页面指令page"><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#&#x4F7F;&#x7528;&#x9875;&#x9762;&#x6307;&#x4EE4;page" class="headerlink" title="&#x4F7F;&#x7528;&#x9875;&#x9762;&#x6307;&#x4EE4;page"></a>&#x4F7F;&#x7528;&#x9875;&#x9762;&#x6307;&#x4EE4;page</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用文件包含指令include"><span class="nav-number">2.2.</span> <span class="nav-text"><a href="#&#x4F7F;&#x7528;&#x6587;&#x4EF6;&#x5305;&#x542B;&#x6307;&#x4EE4;include" class="headerlink" title="&#x4F7F;&#x7528;&#x6587;&#x4EF6;&#x5305;&#x542B;&#x6307;&#x4EE4;include"></a>&#x4F7F;&#x7528;&#x6587;&#x4EF6;&#x5305;&#x542B;&#x6307;&#x4EE4;include</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用引用标签库指令taglib"><span class="nav-number">2.3.</span> <span class="nav-text"><a href="#&#x4F7F;&#x7528;&#x5F15;&#x7528;&#x6807;&#x7B7E;&#x5E93;&#x6307;&#x4EE4;taglib" class="headerlink" title="&#x4F7F;&#x7528;&#x5F15;&#x7528;&#x6807;&#x7B7E;&#x5E93;&#x6307;&#x4EE4;taglib"></a>&#x4F7F;&#x7528;&#x5F15;&#x7528;&#x6807;&#x7B7E;&#x5E93;&#x6307;&#x4EE4;taglib</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-JSP脚本"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x4F7F;&#x7528;-JSP&#x811A;&#x672C;" class="headerlink" title="&#x4F7F;&#x7528; JSP&#x811A;&#x672C;"></a>&#x4F7F;&#x7528; JSP&#x811A;&#x672C;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在JSP中应用代码片段"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#&#x5728;JSP&#x4E2D;&#x5E94;&#x7528;&#x4EE3;&#x7801;&#x7247;&#x6BB5;" class="headerlink" title="&#x5728;JSP&#x4E2D;&#x5E94;&#x7528;&#x4EE3;&#x7801;&#x7247;&#x6BB5;"></a>&#x5728;JSP&#x4E2D;&#x5E94;&#x7528;&#x4EE3;&#x7801;&#x7247;&#x6BB5;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用JSP表达式"><span class="nav-number">3.2.</span> <span class="nav-text"><a href="#&#x4F7F;&#x7528;JSP&#x8868;&#x8FBE;&#x5F0F;" class="headerlink" title="&#x4F7F;&#x7528;JSP&#x8868;&#x8FBE;&#x5F0F;"></a>&#x4F7F;&#x7528;JSP&#x8868;&#x8FBE;&#x5F0F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用声明标识"><span class="nav-number">3.3.</span> <span class="nav-text"><a href="#&#x4F7F;&#x7528;&#x58F0;&#x660E;&#x6807;&#x8BC6;" class="headerlink" title="&#x4F7F;&#x7528;&#x58F0;&#x660E;&#x6807;&#x8BC6;"></a>&#x4F7F;&#x7528;&#x58F0;&#x660E;&#x6807;&#x8BC6;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#巧用注释"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x5DE7;&#x7528;&#x6CE8;&#x91CA;" class="headerlink" title="&#x5DE7;&#x7528;&#x6CE8;&#x91CA;"></a>&#x5DE7;&#x7528;&#x6CE8;&#x91CA;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本HTML注释"><span class="nav-number">4.1.</span> <span class="nav-text"><a href="#&#x57FA;&#x672C;HTML&#x6CE8;&#x91CA;" class="headerlink" title="&#x57FA;&#x672C;HTML&#x6CE8;&#x91CA;"></a>&#x57FA;&#x672C;HTML&#x6CE8;&#x91CA;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐藏注释（安全性高）"><span class="nav-number">4.2.</span> <span class="nav-text"><a href="#&#x9690;&#x85CF;&#x6CE8;&#x91CA;&#xFF08;&#x5B89;&#x5168;&#x6027;&#x9AD8;&#xFF09;" class="headerlink" title="&#x9690;&#x85CF;&#x6CE8;&#x91CA;&#xFF08;&#x5B89;&#x5168;&#x6027;&#x9AD8;&#xFF09;"></a>&#x9690;&#x85CF;&#x6CE8;&#x91CA;&#xFF08;&#x5B89;&#x5168;&#x6027;&#x9AD8;&#xFF09;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码片段中的注释"><span class="nav-number">4.3.</span> <span class="nav-text"><a href="#&#x4EE3;&#x7801;&#x7247;&#x6BB5;&#x4E2D;&#x7684;&#x6CE8;&#x91CA;" class="headerlink" title="&#x4EE3;&#x7801;&#x7247;&#x6BB5;&#x4E2D;&#x7684;&#x6CE8;&#x91CA;"></a>&#x4EE3;&#x7801;&#x7247;&#x6BB5;&#x4E2D;&#x7684;&#x6CE8;&#x91CA;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用JSP动作标识"><span class="nav-number">5.</span> <span class="nav-text"><a href="#&#x5E38;&#x7528;JSP&#x52A8;&#x4F5C;&#x6807;&#x8BC6;" class="headerlink" title="&#x5E38;&#x7528;JSP&#x52A8;&#x4F5C;&#x6807;&#x8BC6;"></a>&#x5E38;&#x7528;JSP&#x52A8;&#x4F5C;&#x6807;&#x8BC6;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用包含动作标识"><span class="nav-number">5.1.</span> <span class="nav-text"><a href="#&#x4F7F;&#x7528;&#x5305;&#x542B;&#x52A8;&#x4F5C;&#x6807;&#x8BC6;" class="headerlink" title="&#x4F7F;&#x7528;&#x5305;&#x542B;&#x52A8;&#x4F5C;&#x6807;&#x8BC6;"></a>&#x4F7F;&#x7528;&#x5305;&#x542B;&#x52A8;&#x4F5C;&#x6807;&#x8BC6;<jsp:include></jsp:include></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用请求转发的动作标识"><span class="nav-number">5.2.</span> <span class="nav-text"><a href="#&#x4F7F;&#x7528;&#x8BF7;&#x6C42;&#x8F6C;&#x53D1;&#x7684;&#x52A8;&#x4F5C;&#x6807;&#x8BC6;" class="headerlink" title="&#x4F7F;&#x7528;&#x8BF7;&#x6C42;&#x8F6C;&#x53D1;&#x7684;&#x52A8;&#x4F5C;&#x6807;&#x8BC6;"></a>&#x4F7F;&#x7528;&#x8BF7;&#x6C42;&#x8F6C;&#x53D1;&#x7684;&#x52A8;&#x4F5C;&#x6807;&#x8BC6;<jsp:forward></jsp:forward></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用子动作标识"><span class="nav-number">5.3.</span> <span class="nav-text"><a href="#&#x4F7F;&#x7528;&#x5B50;&#x52A8;&#x4F5C;&#x6807;&#x8BC6;" class="headerlink" title="&#x4F7F;&#x7528;&#x5B50;&#x52A8;&#x4F5C;&#x6807;&#x8BC6;"></a>&#x4F7F;&#x7528;&#x5B50;&#x52A8;&#x4F5C;&#x6807;&#x8BC6;<jsp:param></jsp:param></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用动作标识-（重点）"><span class="nav-number">5.4.</span> <span class="nav-text"><a href="#&#x4F7F;&#x7528;&#x52A8;&#x4F5C;&#x6807;&#x8BC6;-&#xFF08;&#x91CD;&#x70B9;&#xFF09;" class="headerlink" title="&#x4F7F;&#x7528;&#x52A8;&#x4F5C;&#x6807;&#x8BC6; &#xFF08;&#x91CD;&#x70B9;&#xFF09;"></a>&#x4F7F;&#x7528;&#x52A8;&#x4F5C;&#x6807;&#x8BC6;<jsp:usebean> &#xFF08;&#x91CD;&#x70B9;&#xFF09;</jsp:usebean></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用动作标识"><span class="nav-number">5.5.</span> <span class="nav-text"><a href="#&#x4F7F;&#x7528;&#x52A8;&#x4F5C;&#x6807;&#x8BC6;" class="headerlink" title="&#x4F7F;&#x7528;&#x52A8;&#x4F5C;&#x6807;&#x8BC6;"></a>&#x4F7F;&#x7528;&#x52A8;&#x4F5C;&#x6807;&#x8BC6;<jsp:getproperty></jsp:getproperty></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用动作标识-1"><span class="nav-number">5.6.</span> <span class="nav-text"><a href="#&#x4F7F;&#x7528;&#x52A8;&#x4F5C;&#x6807;&#x8BC6;-1" class="headerlink" title="&#x4F7F;&#x7528;&#x52A8;&#x4F5C;&#x6807;&#x8BC6;"></a>&#x4F7F;&#x7528;&#x52A8;&#x4F5C;&#x6807;&#x8BC6;<jsp:setproperty></jsp:setproperty></span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上机实践"><span class="nav-number">6.</span> <span class="nav-text"><a href="#&#x4E0A;&#x673A;&#x5B9E;&#x8DF5;" class="headerlink" title="&#x4E0A;&#x673A;&#x5B9E;&#x8DF5;"></a>&#x4E0A;&#x673A;&#x5B9E;&#x8DF5;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#应用Java程序片段动态生成表格"><span class="nav-number">6.1.</span> <span class="nav-text"><a href="#&#x5E94;&#x7528;Java&#x7A0B;&#x5E8F;&#x7247;&#x6BB5;&#x52A8;&#x6001;&#x751F;&#x6210;&#x8868;&#x683C;" class="headerlink" title="&#x5E94;&#x7528;Java&#x7A0B;&#x5E8F;&#x7247;&#x6BB5;&#x52A8;&#x6001;&#x751F;&#x6210;&#x8868;&#x683C;"></a>&#x5E94;&#x7528;Java&#x7A0B;&#x5E8F;&#x7247;&#x6BB5;&#x52A8;&#x6001;&#x751F;&#x6210;&#x8868;&#x683C;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将页面转发到用户登陆页面"><span class="nav-number">6.2.</span> <span class="nav-text"><a href="#&#x5C06;&#x9875;&#x9762;&#x8F6C;&#x53D1;&#x5230;&#x7528;&#x6237;&#x767B;&#x9646;&#x9875;&#x9762;" class="headerlink" title="&#x5C06;&#x9875;&#x9762;&#x8F6C;&#x53D1;&#x5230;&#x7528;&#x6237;&#x767B;&#x9646;&#x9875;&#x9762;"></a>&#x5C06;&#x9875;&#x9762;&#x8F6C;&#x53D1;&#x5230;&#x7528;&#x6237;&#x767B;&#x9646;&#x9875;&#x9762;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用JavaBean保存图片信息"><span class="nav-number">6.3.</span> <span class="nav-text"><a href="#&#x5E94;&#x7528;JavaBean&#x4FDD;&#x5B58;&#x56FE;&#x7247;&#x4FE1;&#x606F;" class="headerlink" title="&#x5E94;&#x7528;JavaBean&#x4FDD;&#x5B58;&#x56FE;&#x7247;&#x4FE1;&#x606F;"></a>&#x5E94;&#x7528;JavaBean&#x4FDD;&#x5B58;&#x56FE;&#x7247;&#x4FE1;&#x606F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">6.4.</span> <span class="nav-text"><a href="#" class="headerlink" title=" "></a> </span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-1"><span class="nav-number">6.5.</span> <span class="nav-text"><a href="#-1" class="headerlink" title=" "></a> </span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">StormWangxhu</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v="></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v="></script>
+<script type="text/javascript" src="/js/src/post-details.js?v="></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v="></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,QQZone";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,QQZone";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v="></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v="></script>
+
+
+  
+
+</body>
+</html>
