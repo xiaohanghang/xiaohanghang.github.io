@@ -5,13 +5,13 @@ permalink: /about/
 no_duoshuo: true
 ---
 
-##Experience##
+
 liuhang experience:
 
-1. 语言汉化
-2. 加入**多说**评论功能
-3. 加入**百度统计**(可用google统计和百度统计)
-4. fonts.googleapis.com更改为360字体cdn，大幅增加国内访问速度
+1. 美的美云智数 慧享云事业部
+2. 网易游戏 基础架构部
+3. 小米用户中心组
+
 
 关于如何使用，请参考：[中文版使用说明](http://pixyll.maxee.info)
 
