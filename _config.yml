@@ -1,16 +1,16 @@
 # Site settings
-title:       pixell中文版 
-email:       youremail@example.com 
-author:      John Otander
-description: "A simple, beautiful theme for Jekyll that emphasizes content rather than aesthetic fluff."
+title:       Blog
+email:       hang3.liu@gmail.com
+author:      Liu Hang
+description: "data science/web develop blog"
 baseurl:     ""
-url:         "http://pixyll.maxee.info"
+url:         "https://github.com/xiaohanghang/"
 
 #Duoshuo short Name / 多说的shortname
-duoshuo: 
+duoshuo:
 
 #Baidu analytics / 百度统计(异步的js码，注意使用异步版本的)
-baidu_analyze: 3908cbb144cf558ba6a823230d653fc22 
+baidu_analyze: 3908cbb144cf558ba6a823230d653fc22
 
 # Google analytics
 google_analytics:
@@ -22,7 +22,7 @@ show_post_footers:  false
 
 # Social icons
 show_social_icons: false
-github_username:
+github_username: true
 twitter_username:
 google_plus_id:
 linkedin_username:

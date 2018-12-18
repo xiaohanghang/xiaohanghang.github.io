@@ -1,11 +1,11 @@
 ---
 layout: page
-title:  关于Pixyll 中文版
+title:  liuhang's experience
 permalink: /about/
 no_duoshuo: true
 ---
 
-##中文版说明##
+##Experience##
 这是pixyll的汉化版，主要改动如下:
 
 1. 语言汉化
