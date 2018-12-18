@@ -1,8 +1,8 @@
 title: Xiao Hang
 description: data kstream/web develop/Speech signal and machine learning
 
-url: https://github.com/xiaohanghang
-baseurl: "https://github.com/xiaohanghang"
+url: https://xiaohanghang.github.io/
+baseurl: ""
 paginate_path: "blog/page:num/"
 permalink: blog/:title/
 
@@ -14,9 +14,9 @@ paginate: 5
 navigation:
  - title: Home
    url: /index.html
- - title: About
+ - title: 关于我
    url: /about
- - title: Contact
+ - title: 联系我
    url: /contact
 
 social:
