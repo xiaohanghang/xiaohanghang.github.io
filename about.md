@@ -6,7 +6,7 @@ no_duoshuo: true
 ---
 
 ##Experience##
-这是pixyll的汉化版，主要改动如下:
+liuhang experience:
 
 1. 语言汉化
 2. 加入**多说**评论功能
