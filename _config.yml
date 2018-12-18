@@ -4,7 +4,7 @@ email:       hang3.liu@gmail.com
 author:      Liu Hang
 description: "data science/web develop blog"
 baseurl:     ""
-url:         "https://github.com/xiaohanghang/"
+url:         "https://xiaohanghang.github.io/"
 
 #Duoshuo short Name / 多说的shortname
 duoshuo:
@@ -21,7 +21,7 @@ show_related_posts: false
 show_post_footers:  false
 
 # Social icons
-show_social_icons: true
+show_social_icons: truesssss
 github_username: true
 twitter_username:
 google_plus_id:
