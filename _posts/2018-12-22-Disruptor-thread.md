@@ -1,13 +1,13 @@
 ---
 layout:     post
 title:      Disruptor thread分析
-date:       2018-12-18 11:55:00
+date:       2018-12-22 11:22:00
 summary:    why Disruptor so quick
 categories: jekyll pixyll
 ---
 
 
-###锁的缺点
+### 锁的缺点
 
 想象有两个线程尝试修改同一个变量value：
 
