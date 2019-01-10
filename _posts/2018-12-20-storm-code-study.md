@@ -61,10 +61,13 @@ Tuple是storm中的主要数据结构，在storm发送接收消息的过程中�
 
 ##   通信机制
 ### 分布式模式下实现
+
 ![](/images/5dfb0cbd211be2227a93ca1b31eb17b.png)
 >  在分布式模式下，Strom采用ZMQ来进行通信,成员变量socket表示ZMQ的连接字符串。bb为预先分配的ByteBuffer空间，用来存储已被序列化的端口号。 ZMQ会分两次发送消息：第一次发送TaskId，第二次则为具体的消息内容，接收时同样先接收TaskId，然后接收具体内容。
+
 ![](/images/15470994851111.jpg)
 - context为ZMQContext对象
 - linger-ms 表示调用ZMQ Socket的关闭方法term后未发送消息的等待时间。若超出该事件，未发送的消息将被丢弃。该变量的默认值为5秒。
 - hwm表示ZMQ发送队列的高水平线。若发送队列里面的消息个数超过hwm，新来的消息可能会被丢弃。
 - local? 表示系统是否运行在单机环境下ZMQ的Socket参数。
+- bind方法设置了ZMQ的Socket参数，注意这里的socket模式设置为pull类型，表示返回的Socket主要用于接收消息。
