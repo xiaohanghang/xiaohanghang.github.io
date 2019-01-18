@@ -48,8 +48,7 @@ public class Fields implements Iterable<String>,Serializable{
 ### 4.Tuple 接口
 Tuple是storm中的主要数据结构，在storm发送接收消息的过程中，每一条消息实际上都是一个Tuple对象，下面首先看一下Tuple接口的定义：
 
-##   通信机制
-### 分布式模式下实现
+### 通信机制  分布式模式下实现
 
 ![](/images/5dfb0cbd211be2227a93ca1b31eb17b.png)
 >  在分布式模式下，Strom采用ZMQ来进行通信,成员变量socket表示ZMQ的连接字符串。bb为预先分配的ByteBuffer空间，用来存储已被序列化的端口号。 ZMQ会分两次发送消息：第一次发送TaskId，第二次则为具体的消息内容，接收时同样先接收TaskId，然后接收具体内容。
