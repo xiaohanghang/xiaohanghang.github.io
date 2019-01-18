@@ -76,4 +76,14 @@ Tuple是storm中的主要数据结构，在storm发送接收消息的过程中�
 
 ![](/images/11111111.jpg)
 
-在图中，实线部分为spout发射的原始主干tuple，虚线部分表示的子tuple都是源自于原始的tuple。这样产生的图形叫做tuple树，在有保障数据的处理过程中，bolt每收到一个tuple，都需要向上确认应答(ack)者报错，
+在图中，实线部分为spout发射的原始主干tuple，虚线部分表示的子tuple都是源自于原始的tuple。这样产生的图形叫做tuple树，在有保障数据的处理过程中，bolt每收到一个tuple，都需要向上确认应答(ack)者报错。
+
+bolt的可靠性：
+1.当发射衍生的tuple时，需要锚定读入的tuple
+2.当处理消息成功或者失败时分别确认应答或者报错。
+锚定一个tuple的意思是，建立读入tuple和衍生出的tuple之间的对应关系，这样下游的bolt就可以通过应答确认、报错或者超时来加入到tuple树结构中。可以通过调用OutputCollector中emit()的一个重载函数锚定一个或者一组tuple：
+collector.emit(tuple,new Values(word));
+这里我们将读入的tuple和发射的新tuple锚定起来，下游的bolt就需要对输出的tuple进行确认应答或者报错，另外一个emit()方法发射非锚定的tuple：
+collector.emit(new Values(word));
+当处理完成或者发送了新的tuple之后，可靠的数据流中的bolt需要应答读入的tuple：
+this.collector.ack(tuple);
