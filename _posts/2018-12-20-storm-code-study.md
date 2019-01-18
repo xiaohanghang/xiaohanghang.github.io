@@ -85,3 +85,5 @@ Tuple是storm中的主要数据结构，在storm发送接收消息的过程中�
 >  在storm中，可靠的消息处理机制是从spout开始的，一个提供了可靠的处理机制的spout需要记录它发射出去的tuple，当下游bolt处理tuple或者子tuple失败时，spout能够重新发射，子tuple可以理解为bolt处理spout发射的原始tuple，作为结果发射出去的tuple。另一个视角来看，可以将spout发射的数据流看成一个tuple树的主干。
 
 ![](/images/11111111.jpg)
+
+在图中，实线部分为spout发射的原始主干tuple，虚线部分表示的子tuple都是源自于原始的tuple。这样产生的图形叫做tuple树，在有保障数据的处理过程中，bolt每收到一个tuple，都需要向上确认应答(ack)者报错，
