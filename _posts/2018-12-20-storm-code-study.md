@@ -71,3 +71,17 @@ Tuple是storm中的主要数据结构，在storm发送接收消息的过程中�
 - hwm表示ZMQ发送队列的高水平线。若发送队列里面的消息个数超过hwm，新来的消息可能会被丢弃。
 - local? 表示系统是否运行在单机环境下ZMQ的Socket参数。
 - bind方法设置了ZMQ的Socket参数，注意这里的socket模式设置为pull类型，表示返回的Socket主要用于接收消息。
+
+
+
+### supervisor守护进程的工作方式
+> supervisor守护进程等待nimbus分配任务后生成并监控worker(JVM进程)执行任务，supervisor和worker都是运行在不同的jvm进程上，如果由supervisor拉起的一个worker进程因为错误(kill -9)异常退出，supervisor守护进程会尝试重新生成新的worker进程。
+
+#### storm保障传输机制
+> Strom的tuple锚定h和应答确认机制，当打开了可靠传输的选项，传输到故障节点上的tuple将不会收到确认应答，spout会因为超时而重新发送原始的tuple。这样的过程会一直重复直到topology从故障中恢复开始正常处理数据。
+
+
+#### storm的可靠性
+>  在storm中，可靠的消息处理机制是从spout开始的，一个提供了可靠的处理机制的spout需要记录它发射出去的tuple，当下游bolt处理tuple或者子tuple失败时，spout能够重新发射，子tuple可以理解为bolt处理spout发射的原始tuple，作为结果发射出去的tuple。另一个视角来看，可以将spout发射的数据流看成一个tuple树的主干。
+
+![](/images/11111111.jpg)
