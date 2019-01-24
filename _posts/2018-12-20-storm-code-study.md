@@ -40,6 +40,35 @@ storm如何使用这些元数据：例如数据何时被写入，更新或者删
 2. Supervisor
 同Nimbus类似，Supervisor也要通过ZooKeeper来创建和获取元数据，除此之外，Supervisor还通过监控指定的本地文件来检测由它启动的所有worker的运行状态。
  1. 箭头3表示Supervisor在ZooKeeper创建的路径，新节点加入时，会在该路径下创建一个节点。值得注意的是，该节点是一个临时节点，即只要Supervisor与ZooKeeper在连接稳定存在时，该节点就一直存在，一旦断开连接，该节点则会被自动删除，该目录下的节点列表代表了目前活跃的机器。这保证了Nimbus能及时 得知当前集群中机器的状态，这也是Nimbus可以进行任务分配的基础，也是Storm具有容错性以及可拓展性的基础。
+ 2. 箭头4表示Supervisor需要获取数据的路径assignment。它是Nimbus写入的对Topology的任务分配信息，Supervisor从该路径可以获取到Nimbus分配给它的任务。Supervisor在本地保存上次的分配信息，对比这两部分信息可以直到分配信息是否有变换，**若发生变换，则需要关闭被移除任务所对应的Worker，并启动新的Worker执行新分配的任务。**
+ 3. 箭头9 表示Supervisor会从LocalState中获取由它启动的所有Worker的心跳信息。Supervisor会每隔一段时间检测一次这些心跳信息，如果发现某个Worker
+
+3.Worker
+Worker需要利用Zookeeper来创建和获取元数据，同时它还需要利用本地的文件来记录自己的心跳信息。
+1. 箭头5 表示worker在Zookeeper中创建的路径是workbeats下面的node-port，在Worker启动时，将会创建一个与其对应的节点，相当于对自身进行注册，需要注意的是，Nimbus在Topology被提交时，只会创建workerbeats，而不会设置数据，数据则留在Worker启动之后由Worker创建。这样的目的之一是为了避免多个Worker同时创建路径时导致的冲突。
+2. 箭头6 表示Worker获取任务的路径，会从任务分配信息中取出分配给它的任务并执行。
+3. 箭头8 表示worker在LocalState中保存的心跳信息，LocalState实际上将这些信息保存在本地文件里，Worker与Supervisor属于不同的进程，因而Storm采用本地文件的方式来传递心跳。
+
+### 小结
+Nimbus/supervisor以及Worker两两之间需要维持心跳信息，关系如下：
+- Nimbus和Supervisor之间通过/storm/supervisors/<supervisor-id>路径对应的数据进行心跳保持。Supervisor创建这个路径采用的临时节点模式，所以只要Supervisor死掉，数据节点就会被删掉，Nimbus就会将原本分配给该Supervisor的任务重新分配。
+- Worker与Nimbus通过/storm/workbeats/<tolopogy-id>node-port中的数据保持心跳保持，Nimbus会每隔一定时间获取该路径下的数据，同时Nimbus还会在它的内存中保存上一次的信息，如果发现某个worker心跳有一段时间没有跟新，就认为该worker已经死掉，Nimbus会对任务分配至worker的任务分配给其他Worker。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
