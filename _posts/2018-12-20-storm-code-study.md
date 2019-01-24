@@ -7,6 +7,23 @@ categories: jekyll pixyll
 ---
 
 ### 1.总体架构与代码结构
+![](/images/sknssns.jpg)
+
+Storm元数据：
+![](/images/sjspsjs.jpg)
+
+storm如何使用这些元数据：例如数据何时被写入，更新或者删除。这些数据都是哪种类型的节点来维护，关系网络的总体交互如下：
+![](/images/lhsshsps.jpg)
+
+
+![](/images/sohspshsp.jpg)
+![](/images/ssoshsss.jpg.jpg)
+
+
+箭头1由Nimbus创建的路径：
+对于路径a，Nimbus只会创建路径，不会设置数据(数据由Worker设置)；对于b和c，Nimbus在创建它们的时候就会设置数据。a和b只有在提交新的Topology的时候才会创建，且b中的数据设置好后就不会再改变，c则在第一次为该Topology进行任务分配的时候创建，若任务分配有变，Nimbus就会更新它的内容。
+
+
 
 
 ### 2.

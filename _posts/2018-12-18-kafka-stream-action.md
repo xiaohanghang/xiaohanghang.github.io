@@ -39,3 +39,6 @@ KStream.through() takes two parameters: the topic name and a Produced instance t
   </p>
 </blockquote>
 Notice that you haven't generated a new key,You're using property of the value to determine the correct partition.The key point to take away from this quick detour is that when you're using state to update and modify records,it's necessary for those records to be on the same partition.
+
+
+###
