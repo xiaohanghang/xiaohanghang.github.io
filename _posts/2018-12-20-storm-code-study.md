@@ -53,7 +53,7 @@ Worker需要利用Zookeeper来创建和获取元数据，同时它还需要利�
 Nimbus/supervisor以及Worker两两之间需要维持心跳信息，关系如下：
 - Nimbus和Supervisor之间通过/storm/supervisors/<supervisor-id>路径对应的数据进行心跳保持。Supervisor创建这个路径采用的临时节点模式，所以只要Supervisor死掉，数据节点就会被删掉，Nimbus就会将原本分配给该Supervisor的任务重新分配。
 - Worker与Nimbus通过/storm/workbeats/<tolopogy-id>node-port中的数据保持心跳保持，Nimbus会每隔一定时间获取该路径下的数据，同时Nimbus还会在它的内存中保存上一次的信息，如果发现某个worker心跳有一段时间没有跟新，就认为该worker已经死掉，Nimbus会对任务分配至worker的任务分配给其他Worker。
-
+- Worker与Supervisor之间通过本地文件(LocalState)进行心跳保持。
 
 
 
