@@ -19,7 +19,15 @@ storm如何使用这些元数据：例如数据何时被写入，更新或者删
 ![](/images/sohspshsp.jpg)
 ![](/images/ssoshsss.jpg)
 
+总结
+- 首先由ZooKeeper创建三个母节点，分别是1. workerbeats 2. storm 3. assignment 均对拓扑结构进行建模，三个节点的信息分别由 1. Worker进程来创建并设置数据 2.storm 与 assignment在ZooKeeper创建的时候就设置数据
+- Supervisor负责创建零时节点并设置数据
+- 获取节点信息：
+  - Numbus：获取workerbeat数据，获取supervisor的信息，还有错误信息
+  - Supervisor： 获取节点的 assignment的任务数据
+  - Worker： 获取节点的 assignment的任务数据
 
+1. Nimbus
 箭头1由Nimbus创建的路径：
 ![](/images/jdkdkdkdkdkd.jpg)
 
@@ -28,6 +36,16 @@ storm如何使用这些元数据：例如数据何时被写入，更新或者删
 ![](/images/sdlhsoshshs.jpg)
 
 **Nimbus需要从路径a读取当前已被分配的Worker的运行状态。根据该信息，Nimbus可以得知哪些Worker状态正常，哪些需要重新被调用，同时还会获取到该Worker所有的Executor统计信息，这些信息通过UI显示给用户。从路径b可以获取当前集群中所有Supervisor的状态,通过这些信息可以得知哪些Supervisor上还有空闲的资源可用，哪些supervisor则已经不再活跃，需要将分配到它的任务分配到其他节点上。从路劲c上可以获取当前所有的错误信息并通过ui显示给用户，集群中可以动态的增减机器，机器的增减会引起ZooKeeper中元数据的变化，Nimbus通过不断获取这些元数据信息来调整任务分配，所以Storm具有良好的可拓展性**
+
+2. Supervisor
+同Nimbus类似，Supervisor也要通过ZooKeeper来创建和获取元数据，除此之外，Supervisor还通过监控指定的本地文件来检测由它启动的所有worker的运行状态。
+ 1. 箭头3表示Supervisor在ZooKeeper创建的路径，新节点加入时，会在该路径下创建一个节点。值得注意的是，该节点是一个临时节点，即只要Supervisor与ZooKeeper在连接稳定存在时，该节点就一直存在，一旦断开连接，该节点则会被自动删除，该目录下的节点列表代表了目前活跃的机器。这保证了Nimbus能及时 得知当前集群中机器的状态，这也是Nimbus可以进行任务分配的基础，也是Storm具有容错性以及可拓展性的基础。
+
+
+
+
+
+
 
 
 
