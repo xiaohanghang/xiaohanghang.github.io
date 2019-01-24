@@ -17,11 +17,19 @@ storm如何使用这些元数据：例如数据何时被写入，更新或者删
 
 
 ![](/images/sohspshsp.jpg)
-![](/images/ssoshsss.jpg.jpg)
+![](/images/ssoshsss.jpg)
 
 
 箭头1由Nimbus创建的路径：
+![](/images/jdkdkdkdkdkd.jpg)
+
 对于路径a，Nimbus只会创建路径，不会设置数据(数据由Worker设置)；对于b和c，Nimbus在创建它们的时候就会设置数据。a和b只有在提交新的Topology的时候才会创建，且b中的数据设置好后就不会再改变，c则在第一次为该Topology进行任务分配的时候创建，若任务分配有变，Nimbus就会更新它的内容。
+
+![](/images/sdlhsoshshs.jpg)
+
+**Nimbus需要从路径a读取当前已被分配的Worker的运行状态。根据该信息，Nimbus可以得知哪些Worker状态正常，哪些需要重新被调用，同时还会获取到该Worker所有的Executor统计信息，这些信息通过UI显示给用户。从路径b可以获取当前集群中所有Supervisor的状态,通过这些信息可以得知哪些Supervisor上还有空闲的资源可用，哪些supervisor则已经不再活跃，需要将分配到它的任务分配到其他节点上。从路劲c上可以获取当前所有的错误信息并通过ui显示给用户，集群中可以动态的增减机器，机器的增减会引起ZooKeeper中元数据的变化，Nimbus通过不断获取这些元数据信息来调整任务分配，所以Storm具有良好的可拓展性**
+
+
 
 
 
