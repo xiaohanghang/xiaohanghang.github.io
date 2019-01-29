@@ -62,3 +62,12 @@ nimbus-data数据结构定义了很多公用数据，其代码如下
  - 第5行尝试获取nimbus-data的submit-lock。为了提高Nimbus的处理能力，在storm所采取的处理模式中(后面介绍的 state-transition)，无论是Nimbus的主服务线程还是计时器线程线程都会调用transition方法。因此为了确保逻辑的正确性，必须在这里做同步。
  - 12-23行定义了get-event方法，该方法会根据键从一个哈希表中查找对应的状态转移函数。如果没能找到，则将这一情况记录下来并根据error-on-no-transition的设置做相应的处理。
  - 24-26行首先调用state-transitions方法获取所有的状态跟状态间的转移事件(哈希表，键是原状态，值是一个从转移事件到状态转移函数的哈希表)，然后根据Topology的状态找到对应的从转移事件到状态转移函数的哈希表，最后调用get-event方法根据传入的转移事件获取状态转移函数。
+
+#### state-transitions
+> state-transitions方法定义了一个状态转移矩阵，它的建集合包括：:active、:inactive、:killed以及：rebalancing，它们表示当前Topology所处的全部起始状态，它的值定义了Topology处于由健指定的状态时，其状态变换需要遵循的从转移事件到对应状态转移函数的映射集合，其相关的代码：
+
+![](/images/slsjosjspj9u.png)
+![](/images/sajpsjdqj[aa.png)
+
+kill-transition方法定义了一个方法，其参数是kill-time，即真正做kill操作之前需要等待的时间，其代码如下：
+![](/images/sshshss.png)
